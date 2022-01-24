@@ -42,7 +42,7 @@ export class Card {
 }
 
 export class StandardDeck {
-    private cards: Array<Card>;
+    private readonly cards: Array<Card>;
 
     public get Cards(): Array<Card> {
         return this.cards;
