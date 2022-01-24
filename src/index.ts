@@ -23,7 +23,11 @@ export enum Faces {
 
 
 export class Card {
-    constructor(public suit: Suits, public face: Faces, public index: number = -1) {}
+    public get Index(): number {
+        return this.index;
+    }
+
+    constructor(public suit: Suits, public face: Faces, private index: number = -1) {}
 
     isAce(): boolean {
         return this.face == Faces.ACE;
@@ -51,8 +55,11 @@ export class StandardDeck {
 
     constructor() {
         this.cards = new Array<Card>();
-        for (const key of this.enumKeys(Faces)) {
-            this.cards.push(new Card(Suits.CLUBS, Faces[key]));
+        let index: number = 0;
+        for (const suitKey of this.enumKeys(Suits)) {
+            for (const faceKey of this.enumKeys(Faces)) {
+                this.cards.push(new Card(Suits[suitKey], Faces[faceKey], index++));
+            }
         }
     }
 
