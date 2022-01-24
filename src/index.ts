@@ -1,5 +1,5 @@
 export enum Suits {
-    CLUBS = "Suits",
+    CLUBS = "Clubs",
     HEARTS = "Hearts",
     SPADES = "Spades",
     DIAMONDS = "Diamonds"
@@ -20,6 +20,7 @@ export enum Faces {
     QUEEN,
     KING
 }
+
 
 export class Card {
     constructor(public suit: Suits, public face: Faces, public index: number = -1) {}
@@ -50,39 +51,18 @@ export class StandardDeck {
 
     constructor() {
         this.cards = new Array<Card>();
-        this.cards.push(new Card(Suits.CLUBS, Faces.ACE))
-        this.cards.push(new Card(Suits.CLUBS, Faces.TWO))
-        this.cards.push(new Card(Suits.CLUBS, Faces.THREE))
-        this.cards.push(new Card(Suits.CLUBS, Faces.FOUR))
-        this.cards.push(new Card(Suits.CLUBS, Faces.FIVE))
-        this.cards.push(new Card(Suits.CLUBS, Faces.SIX))
-        this.cards.push(new Card(Suits.CLUBS, Faces.SEVEN))
-        this.cards.push(new Card(Suits.CLUBS, Faces.EIGHT))
-        this.cards.push(new Card(Suits.CLUBS, Faces.NINE))
-        this.cards.push(new Card(Suits.CLUBS, Faces.TEN))
-        this.cards.push(new Card(Suits.CLUBS, Faces.JACK))
-        this.cards.push(new Card(Suits.CLUBS, Faces.QUEEN))
-        this.cards.push(new Card(Suits.CLUBS, Faces.KING))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.ACE))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.TWO))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.THREE))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.FOUR))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.FIVE))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.SIX))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.SEVEN))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.EIGHT))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.NINE))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.TEN))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.JACK))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.QUEEN))
-        // this.cards.push(new Card(Suits.HEARTS, Faces.KING))
+        for (const key of this.enumKeys(Faces)) {
+            this.cards.push(new Card(Suits.CLUBS, Faces[key]));
+        }
     }
 
     numberOfCards(): number {
         return 52;
     }
 
-    // private enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
-    //     return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
-    // }
+    protected enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
+        return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
+    }
 }
+
+new StandardDeck();

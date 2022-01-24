@@ -1,10 +1,10 @@
-declare enum Suits {
-    CLUBS = 0,
-    HEARTS = 1,
-    SPADES = 2,
-    DIAMONDS = 3
+export declare enum Suits {
+    CLUBS = "Suits",
+    HEARTS = "Hearts",
+    SPADES = "Spades",
+    DIAMONDS = "Diamonds"
 }
-declare enum Faces {
+export declare enum Faces {
     ACE = 1,
     TWO = 2,
     THREE = 3,
@@ -19,14 +19,20 @@ declare enum Faces {
     QUEEN = 12,
     KING = 13
 }
-declare class Card {
+export declare class Card {
     suit: Suits;
     face: Faces;
     index: number;
-    get Suit(): Suits;
     constructor(suit: Suits, face: Faces, index?: number);
     isAce(): boolean;
     isKing(): boolean;
     isInDeck(): boolean;
     toString(): string;
+}
+export declare class StandardDeck {
+    private readonly cards;
+    get Cards(): Array<Card>;
+    constructor();
+    numberOfCards(): number;
+    protected enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[];
 }
