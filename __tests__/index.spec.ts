@@ -284,5 +284,3 @@ describe('StandardDeck class', () => {
         });
     });
 });
-
-console.log(new StandardDeck().toString());
