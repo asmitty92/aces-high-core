@@ -132,6 +132,20 @@ export class StandardDeck {
         }
     }
 
+    fullShuffle(): void {
+        this.randomShuffle();
+
+        this.riffleShuffle();
+        this.riffleShuffle();
+        this.riffleShuffle();
+        this.runningCutsShuffle();
+
+        this.riffleShuffle();
+        this.riffleShuffle();
+        this.riffleShuffle();
+        this.runningCutsShuffle();
+    }
+
     dealCard(): Card {
         if (this.isEmpty())
             throw new TypeError('Cannot deal card, deck is empty');

@@ -283,4 +283,30 @@ describe('StandardDeck class', () => {
             expect(() => deck.dealCard()).toThrow(TypeError);
         });
     });
+
+    describe('fullShuffle() method', () => {
+        beforeEach(() => {
+            deck.randomShuffle = jest.fn().mockImplementation();
+            deck.riffleShuffle = jest.fn().mockImplementation();
+            deck.runningCutsShuffle = jest.fn().mockImplementation();
+        });
+
+        it('should call riffleShuffle() 6 times', () => {
+            deck.fullShuffle();
+
+            expect(deck.riffleShuffle).toHaveBeenCalledTimes(6);
+        });
+
+        it('should call runningCutsShuffle() 2 times', () => {
+            deck.fullShuffle();
+
+            expect(deck.runningCutsShuffle).toHaveBeenCalledTimes(2);
+        });
+
+        it('should call randomShuffle() 1 times', () => {
+            deck.fullShuffle();
+
+            expect(deck.randomShuffle).toHaveBeenCalledTimes(1);
+        });
+    });
 });
