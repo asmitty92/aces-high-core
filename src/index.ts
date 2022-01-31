@@ -181,3 +181,8 @@ export class StandardDeck {
         return [top, bottom];
     }
 }
+
+export interface CardHand {
+    get Cards(): Array<Card>;
+    scoreHand(): number;
+}
