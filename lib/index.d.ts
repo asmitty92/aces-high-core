@@ -41,10 +41,15 @@ export declare class StandardDeck {
     riffleShuffle(): void;
     faroShuffle(): void;
     runningCutsShuffle(): void;
+    fullShuffle(): void;
     dealCard(): Card;
     protected isEmpty(): boolean;
     protected getRandomIndex(min: number, max: number): number;
     protected enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[];
     protected coinFlip(): number;
     protected splitDeck(): Array<Array<Card>>;
+}
+export interface CardHand {
+    get Cards(): Array<Card>;
+    scoreHand(): number;
 }
