@@ -76,7 +76,7 @@ export class StandardDeck {
 
     randomShuffle(): void {
         for (let i = 0; i < this.numberOfCards(); i++) {
-            const swapIndex = this.getRandomIndex(0, this.numberOfCards());
+            const swapIndex = this.getRandomIndex(0, this.numberOfCards() - 1);
             const temp = this.cardAt(i);
             this.cards[i] = this.cardAt(swapIndex);
             this.cards[swapIndex] = temp;
