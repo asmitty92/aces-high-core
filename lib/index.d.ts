@@ -49,7 +49,17 @@ export declare class StandardDeck {
     protected coinFlip(): number;
     protected splitDeck(): Array<Array<Card>>;
 }
-export interface CardHand {
+export declare abstract class CardHand {
+    private cards;
+    protected constructor(cards: Array<Card>);
     get Cards(): Array<Card>;
-    scoreHand(): number;
+    abstract getScore(): number;
+    addCards(cards: Array<Card>): void;
+}
+export declare abstract class CardPlayer {
+    private hand;
+    get Hand(): CardHand;
+    constructor(hand: CardHand);
+    abstract scoreHand(): any;
+    takeCards(cards: Array<Card>): void;
 }

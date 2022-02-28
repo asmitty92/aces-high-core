@@ -1,4 +1,4 @@
-import {Card, Faces, StandardDeck, Suits} from '../src/index';
+import {Card, CardHand, Faces, StandardDeck, Suits, CardPlayer} from '../src/index';
 
 
 function getCuts(deck: StandardDeck): Array<number> {
@@ -16,6 +16,25 @@ function getCuts(deck: StandardDeck): Array<number> {
     }
     cuts.push(count);
     return cuts;
+}
+
+class TestHand extends CardHand {
+    constructor(cards: Array<Card>) {
+        super(cards);
+    }
+
+    getScore(): number {
+        return 0;
+    }
+}
+
+class TestPlayer extends CardPlayer {
+    constructor(hand: CardHand) {
+        super(hand);
+    }
+
+    scoreHand() {
+    }
 }
 
 describe('Card class', () => {
@@ -309,4 +328,48 @@ describe('StandardDeck class', () => {
             expect(deck.randomShuffle).toHaveBeenCalledTimes(1);
         });
     });
+});
+
+describe('CardHand abstract class', () => {
+    describe('Cards getter', () => {
+        it('should return the cards in the hand', () => {
+            const cards = [
+                new Card(Suits.CLUBS, Faces.TWO)
+            ]
+
+            const hand = new TestHand(cards);
+
+            expect(hand.Cards).toEqual(cards);
+        });
+    });
+
+    describe('addCards method', () => {
+        it('should add cards to inner list', () => {
+            const card = new Card(Suits.SPADES, Faces.ACE);
+            const hand = new TestHand([]);
+
+            hand.addCards([card]);
+
+            expect(hand.Cards).toContain(card);
+        })
+    });
+});
+
+describe('CardPlayer abstract class', () => {
+    describe('Hand getter', () => {
+        const hand = new TestHand([]);
+
+        const player = new TestPlayer(hand);
+
+        expect(player.Hand).toEqual(hand);
+    });
+
+    describe('takeCards method', () => {
+        const card = new Card(Suits.DIAMONDS, Faces.JACK);
+        const player = new TestPlayer(new TestHand([]));
+
+        player.takeCards([card])
+
+        expect(player.Hand.Cards).toContain(card);
+    })
 });

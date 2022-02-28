@@ -182,7 +182,30 @@ export class StandardDeck {
     }
 }
 
-export interface CardHand {
-    get Cards(): Array<Card>;
-    scoreHand(): number;
+export abstract class CardHand {
+    protected constructor(private cards: Array<Card>) {}
+
+    get Cards(): Array<Card> {
+        return this.cards;
+    }
+
+    abstract getScore(): number;
+
+    addCards(cards: Array<Card>) {
+        this.cards.push(...cards)
+    }
+}
+
+export abstract class CardPlayer {
+    get Hand(): CardHand {
+        return this.hand;
+    }
+
+    constructor(private hand: CardHand) {}
+
+    abstract scoreHand();
+
+    takeCards(cards: Array<Card>) {
+        this.hand.addCards(cards);
+    }
 }
