@@ -24,6 +24,7 @@ export declare class Card {
     face: Faces;
     private _index;
     get index(): number;
+    get value(): number;
     constructor(suit: Suits, face: Faces, _index?: number);
     isAce(): boolean;
     isKing(): boolean;

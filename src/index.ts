@@ -21,12 +21,33 @@ export enum Faces {
     KING = "King"
 }
 
+const FaceValues: { [key in Faces]: number } = {
+    [Faces.ACE]: 1,
+    [Faces.TWO]: 2,
+    [Faces.THREE]: 3,
+    [Faces.FOUR]: 4,
+    [Faces.FIVE]: 5,
+    [Faces.SIX]: 6,
+    [Faces.SEVEN]: 7,
+    [Faces.EIGHT]: 8,
+    [Faces.NINE]: 9,
+    [Faces.TEN]: 10,
+    [Faces.JACK]: 11,
+    [Faces.QUEEN]: 12,
+    [Faces.KING]: 13,
+};
+
 export class Card {
     public get index(): number {
         return this._index;
     }
 
-    constructor(public suit: Suits, public face: Faces, private _index: number = -1) {}
+    public get value(): number {
+        return FaceValues[this.face];
+    }
+
+    constructor(public suit: Suits, public face: Faces, private _index: number = -1) {
+    }
 
     isAce(): boolean {
         return this.face == Faces.ACE;
@@ -124,11 +145,11 @@ export class StandardDeck {
         const cutSizes = [4, 5, 6, 7, 8];
         const quarter = this.numberOfCards() / 4;
         const halfQuarter = quarter / 2;
-        const cutStart = quarter + this.getRandomIndex(-1 * halfQuarter, halfQuarter-1);
+        const cutStart = quarter + this.getRandomIndex(-1 * halfQuarter, halfQuarter - 1);
         let toCut = this.cards.slice(cutStart);
         this.cards = this.cards.slice(0, cutStart);
 
-        while(toCut.length > 0) {
+        while (toCut.length > 0) {
             const cutIndex = this.getRandomIndex(0, cutSizes.length - 1);
             const cutSize = cutSizes[cutIndex];
             this.cards = toCut.slice(0, cutSize).concat(this.cards);
@@ -183,7 +204,8 @@ export class StandardDeck {
 }
 
 export abstract class CardHand {
-    protected constructor(private _cards: Array<Card>) {}
+    protected constructor(private _cards: Array<Card>) {
+    }
 
     get cards(): Array<Card> {
         return this._cards;
@@ -201,7 +223,8 @@ export abstract class CardPlayer {
         return this._hand;
     }
 
-    protected constructor(private _hand: CardHand) {}
+    protected constructor(private _hand: CardHand) {
+    }
 
     abstract scoreHand();
 

@@ -79,6 +79,24 @@ describe('Card class', () => {
             expect(card.toString()).toEqual('The Eight of Spades');
         });
     });
+
+    describe('value property', () => {
+        it('should return the correct value', () => {
+           expect(new Card(Suits.SPADES, Faces.ACE).value).toBe(1);
+           expect(new Card(Suits.SPADES, Faces.TWO).value).toBe(2);
+           expect(new Card(Suits.SPADES, Faces.THREE).value).toBe(3);
+           expect(new Card(Suits.SPADES, Faces.FOUR).value).toBe(4);
+           expect(new Card(Suits.SPADES, Faces.FIVE).value).toBe(5);
+           expect(new Card(Suits.SPADES, Faces.SIX).value).toBe(6);
+           expect(new Card(Suits.SPADES, Faces.SEVEN).value).toBe(7);
+           expect(new Card(Suits.SPADES, Faces.EIGHT).value).toBe(8);
+           expect(new Card(Suits.SPADES, Faces.NINE).value).toBe(9);
+           expect(new Card(Suits.SPADES, Faces.TEN).value).toBe(10);
+           expect(new Card(Suits.SPADES, Faces.JACK).value).toBe(11);
+           expect(new Card(Suits.SPADES, Faces.QUEEN).value).toBe(12);
+           expect(new Card(Suits.SPADES, Faces.KING).value).toBe(13);
+        });
+    });
 });
 
 describe('StandardDeck class', () => {

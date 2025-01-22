@@ -11,7 +11,8 @@
     "build:watch": "jsii --watch",
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
-    "deploy:npm": "publib-npm"
+    "deploy:npm": "publib-npm",
+    "deploy:all": "publib-npm && publib-pypi"
   },
   "repository": {
     "type": "git",
