@@ -6,27 +6,27 @@ export enum Suits {
 }
 
 export enum Faces {
-    ACE = 1,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING
+    ACE = "Ace",
+    TWO = "Two",
+    THREE = "Three",
+    FOUR = "Four",
+    FIVE = "Five",
+    SIX = "Six",
+    SEVEN = "Seven",
+    EIGHT = "Eight",
+    NINE = "Nine",
+    TEN = "Ten",
+    JACK = "Jack",
+    QUEEN = "Queen",
+    KING = "King"
 }
 
 export class Card {
-    public get Index(): number {
-        return this.index;
+    public get index(): number {
+        return this._index;
     }
 
-    constructor(public suit: Suits, public face: Faces, private index: number = -1) {}
+    constructor(public suit: Suits, public face: Faces, private _index: number = -1) {}
 
     isAce(): boolean {
         return this.face == Faces.ACE;
@@ -41,22 +41,26 @@ export class Card {
     }
 
     toString(): string {
-        return `The ${Faces[this.face]} of ${this.suit}`
+        return `The ${this.face} of ${this.suit}`
     }
 }
 
 export class StandardDeck {
-    private cards: Array<Card>;
+    private _cards: Array<Card>;
 
-    get Cards(): Array<Card> {
-        return this.cards;
+    get cards(): Array<Card> {
+        return this._cards;
+    }
+
+    protected set cards(value: Array<Card>) {
+        this._cards = value;
     }
 
     constructor() {
-        this.cards = new Array<Card>();
+        this._cards = new Array<Card>();
         let index: number = 0;
-        for (const suitKey of this.enumKeys(Suits)) {
-            for (const faceKey of this.enumKeys(Faces)) {
+        for (const suitKey of Object.keys(Suits)) {
+            for (const faceKey of Object.keys(Faces)) {
                 this.cards.push(new Card(Suits[suitKey], Faces[faceKey], index++));
             }
         }
@@ -161,10 +165,6 @@ export class StandardDeck {
         return Math.ceil(Math.random() * (max - min) + min);
     }
 
-    protected enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
-        return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
-    }
-
     protected coinFlip(): number {
         return Math.floor(Math.random() * 100) % 2;
     }
@@ -183,13 +183,13 @@ export class StandardDeck {
 }
 
 export abstract class CardHand {
-    protected constructor(private cards: Array<Card>) {}
+    protected constructor(private _cards: Array<Card>) {}
 
-    get Cards(): Array<Card> {
-        return this.cards;
+    get cards(): Array<Card> {
+        return this._cards;
     }
 
-    abstract getScore(): number;
+    abstract calculateScore(): number;
 
     addCards(cards: Array<Card>) {
         this.cards.push(...cards)
@@ -197,11 +197,11 @@ export abstract class CardHand {
 }
 
 export abstract class CardPlayer {
-    get Hand(): CardHand {
-        return this.hand;
+    get hand(): CardHand {
+        return this._hand;
     }
 
-    constructor(private hand: CardHand) {}
+    protected constructor(private _hand: CardHand) {}
 
     abstract scoreHand();
 

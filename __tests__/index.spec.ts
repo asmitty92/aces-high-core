@@ -1,5 +1,4 @@
-import {Card, CardHand, Faces, StandardDeck, Suits, CardPlayer} from '../src/index';
-
+import {Card, CardHand, Faces, StandardDeck, Suits, CardPlayer} from '../src';
 
 function getCuts(deck: StandardDeck): Array<number> {
     let count = 1;
@@ -7,7 +6,7 @@ function getCuts(deck: StandardDeck): Array<number> {
     for (let i = 1; i < deck.numberOfCards(); i++) {
         const currentCard = deck.cardAt(i);
         const previousCard = deck.cardAt(i - 1);
-        if (currentCard.Index - previousCard.Index == 1) {
+        if (currentCard.index - previousCard.index == 1) {
             count++;
         } else {
             cuts.push(count);
@@ -23,7 +22,7 @@ class TestHand extends CardHand {
         super(cards);
     }
 
-    getScore(): number {
+    calculateScore(): number {
         return 0;
     }
 }
@@ -77,7 +76,7 @@ describe('Card class', () => {
     describe('toString() method', () => {
         it('should return the card representation as a string', () => {
             const card = new Card(Suits.SPADES, Faces.EIGHT);
-            expect(card.toString()).toEqual('The EIGHT of Spades');
+            expect(card.toString()).toEqual('The Eight of Spades');
         });
     });
 });
@@ -94,72 +93,72 @@ describe('StandardDeck class', () => {
         });
 
         it('should contain all Clubs', () => {
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.ACE, 0));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.TWO, 1));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.THREE, 2));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.FOUR, 3));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.FIVE, 4));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.SIX, 5));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.SEVEN, 6));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.EIGHT, 7));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.NINE, 8));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.TEN, 9));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.JACK, 10));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.QUEEN, 11));
-            expect(deck.Cards).toContainEqual(new Card(Suits.CLUBS, Faces.KING, 12));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.ACE, 0));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.TWO, 1));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.THREE, 2));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.FOUR, 3));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.FIVE, 4));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.SIX, 5));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.SEVEN, 6));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.EIGHT, 7));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.NINE, 8));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.TEN, 9));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.JACK, 10));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.QUEEN, 11));
+            expect(deck.cards).toContainEqual(new Card(Suits.CLUBS, Faces.KING, 12));
         });
 
         it('should contain all Hearts', () => {
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.ACE, 13));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.TWO, 14));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.THREE, 15));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.FOUR, 16));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.FIVE, 17));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.SIX, 18));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.SEVEN, 19));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.EIGHT, 20));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.NINE, 21));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.TEN, 22));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.JACK, 23));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.QUEEN, 24));
-            expect(deck.Cards).toContainEqual(new Card(Suits.HEARTS, Faces.KING, 25));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.ACE, 13));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.TWO, 14));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.THREE, 15));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.FOUR, 16));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.FIVE, 17));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.SIX, 18));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.SEVEN, 19));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.EIGHT, 20));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.NINE, 21));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.TEN, 22));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.JACK, 23));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.QUEEN, 24));
+            expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.KING, 25));
         });
 
         it('should contain all Spades', () => {
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.ACE, 26));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.TWO, 27));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.THREE, 28));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.FOUR, 29));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.FIVE, 30));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.SIX, 31));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.SEVEN, 32));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.EIGHT, 33));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.NINE, 34));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.TEN, 35));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.JACK, 36));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.QUEEN, 37));
-            expect(deck.Cards).toContainEqual(new Card(Suits.SPADES, Faces.KING, 38));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.ACE, 26));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.TWO, 27));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.THREE, 28));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.FOUR, 29));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.FIVE, 30));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.SIX, 31));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.SEVEN, 32));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.EIGHT, 33));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.NINE, 34));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.TEN, 35));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.JACK, 36));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.QUEEN, 37));
+            expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.KING, 38));
         });
 
         it('should contain all Diamonds', () => {
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.ACE, 39));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TWO, 40));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.THREE, 41));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FOUR, 42));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FIVE, 43));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SIX, 44));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SEVEN, 45));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.EIGHT, 46));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.NINE, 47));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TEN, 48));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.JACK, 49));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.QUEEN, 50));
-            expect(deck.Cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.KING, 51));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.ACE, 39));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TWO, 40));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.THREE, 41));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FOUR, 42));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FIVE, 43));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SIX, 44));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SEVEN, 45));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.EIGHT, 46));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.NINE, 47));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TEN, 48));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.JACK, 49));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.QUEEN, 50));
+            expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.KING, 51));
         });
 
         it('should give all cards an index', () => {
             for (let i = 0; i < deck.numberOfCards(); i++) {
-                expect(deck.cardAt(i).Index).toEqual(i);
+                expect(deck.cardAt(i).index).toEqual(i);
             }
         })
     });
@@ -167,7 +166,7 @@ describe('StandardDeck class', () => {
     describe('toString() method', () => {
         it('should return a string containing all cards', () => {
             const deck = new StandardDeck();
-            expect(deck.toString()).toEqual(deck.Cards.join('\n'));
+            expect(deck.toString()).toEqual(deck.cards.join('\n'));
         });
     });
 
@@ -177,7 +176,7 @@ describe('StandardDeck class', () => {
 
             let areCardsShuffled = false;
             for (let i = 0; i < deck.numberOfCards(); i++) {
-                if (deck.cardAt(i).Index != i) {
+                if (deck.cardAt(i).index != i) {
                     areCardsShuffled = true;
                     break
                 }
@@ -200,8 +199,8 @@ describe('StandardDeck class', () => {
             //check rest of deck just by index
             let expectedIndex = 0;
             for (let i = 0; i < deck.numberOfCards() / 2; i += 2) {
-                expect(deck.cardAt(i).Index).toEqual(expectedIndex);
-                expect(deck.cardAt(i + 1).Index).toEqual(expectedIndex + 26);
+                expect(deck.cardAt(i).index).toEqual(expectedIndex);
+                expect(deck.cardAt(i + 1).index).toEqual(expectedIndex + 26);
                 expectedIndex += 1;
             }
         });
@@ -219,7 +218,7 @@ describe('StandardDeck class', () => {
 
             let index = 0;
             for (let i = 0; i < deck.numberOfCards(); i += 2) {
-                const indices = [deck.cardAt(i).Index, deck.cardAt(i + 1).Index]
+                const indices = [deck.cardAt(i).index, deck.cardAt(i + 1).index]
                 expect(indices).toContainEqual(index);
                 expect(indices).toContainEqual(index + 26);
                 index++;
@@ -339,7 +338,7 @@ describe('CardHand abstract class', () => {
 
             const hand = new TestHand(cards);
 
-            expect(hand.Cards).toEqual(cards);
+            expect(hand.cards).toEqual(cards);
         });
     });
 
@@ -350,7 +349,7 @@ describe('CardHand abstract class', () => {
 
             hand.addCards([card]);
 
-            expect(hand.Cards).toContain(card);
+            expect(hand.cards).toContain(card);
         })
     });
 });
@@ -361,7 +360,7 @@ describe('CardPlayer abstract class', () => {
 
         const player = new TestPlayer(hand);
 
-        expect(player.Hand).toEqual(hand);
+        expect(player.hand).toEqual(hand);
     });
 
     describe('takeCards method', () => {
@@ -370,6 +369,6 @@ describe('CardPlayer abstract class', () => {
 
         player.takeCards([card])
 
-        expect(player.Hand.Cards).toContain(card);
+        expect(player.hand.cards).toContain(card);
     })
 });

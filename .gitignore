@@ -105,3 +105,9 @@ dist
 
 # WebStorm IDE
 .idea/
+
+# Python virtualenv
+.venv/
+
+# JSII
+.jsii

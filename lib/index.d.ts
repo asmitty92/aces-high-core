@@ -5,34 +5,35 @@ export declare enum Suits {
     DIAMONDS = "Diamonds"
 }
 export declare enum Faces {
-    ACE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
-    FIVE = 5,
-    SIX = 6,
-    SEVEN = 7,
-    EIGHT = 8,
-    NINE = 9,
-    TEN = 10,
-    JACK = 11,
-    QUEEN = 12,
-    KING = 13
+    ACE = "Ace",
+    TWO = "Two",
+    THREE = "Three",
+    FOUR = "Four",
+    FIVE = "Five",
+    SIX = "Six",
+    SEVEN = "Seven",
+    EIGHT = "Eight",
+    NINE = "Nine",
+    TEN = "Ten",
+    JACK = "Jack",
+    QUEEN = "Queen",
+    KING = "King"
 }
 export declare class Card {
     suit: Suits;
     face: Faces;
-    private index;
-    get Index(): number;
-    constructor(suit: Suits, face: Faces, index?: number);
+    private _index;
+    get index(): number;
+    constructor(suit: Suits, face: Faces, _index?: number);
     isAce(): boolean;
     isKing(): boolean;
     isInDeck(): boolean;
     toString(): string;
 }
 export declare class StandardDeck {
-    private cards;
-    get Cards(): Array<Card>;
+    private _cards;
+    get cards(): Array<Card>;
+    protected set cards(value: Array<Card>);
     constructor();
     toString(): string;
     numberOfCards(): number;
@@ -45,21 +46,20 @@ export declare class StandardDeck {
     dealCard(): Card;
     protected isEmpty(): boolean;
     protected getRandomIndex(min: number, max: number): number;
-    protected enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[];
     protected coinFlip(): number;
     protected splitDeck(): Array<Array<Card>>;
 }
 export declare abstract class CardHand {
-    private cards;
-    protected constructor(cards: Array<Card>);
-    get Cards(): Array<Card>;
-    abstract getScore(): number;
+    private _cards;
+    protected constructor(_cards: Array<Card>);
+    get cards(): Array<Card>;
+    abstract calculateScore(): number;
     addCards(cards: Array<Card>): void;
 }
 export declare abstract class CardPlayer {
-    private hand;
-    get Hand(): CardHand;
-    constructor(hand: CardHand);
+    private _hand;
+    get hand(): CardHand;
+    protected constructor(_hand: CardHand);
     abstract scoreHand(): any;
     takeCards(cards: Array<Card>): void;
 }
