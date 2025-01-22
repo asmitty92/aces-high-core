@@ -21,21 +21,21 @@ export enum Faces {
     KING = "King"
 }
 
-const FaceValues: { [key in Faces]: number } = {
-    [Faces.ACE]: 1,
-    [Faces.TWO]: 2,
-    [Faces.THREE]: 3,
-    [Faces.FOUR]: 4,
-    [Faces.FIVE]: 5,
-    [Faces.SIX]: 6,
-    [Faces.SEVEN]: 7,
-    [Faces.EIGHT]: 8,
-    [Faces.NINE]: 9,
-    [Faces.TEN]: 10,
-    [Faces.JACK]: 11,
-    [Faces.QUEEN]: 12,
-    [Faces.KING]: 13,
-};
+const FaceValues: Map<Faces, number> = new Map([
+    [Faces.ACE, 1],
+    [Faces.TWO, 2],
+    [Faces.THREE, 3],
+    [Faces.FOUR, 4],
+    [Faces.FIVE, 5],
+    [Faces.SIX, 6],
+    [Faces.SEVEN, 7],
+    [Faces.EIGHT, 8],
+    [Faces.NINE, 9],
+    [Faces.TEN, 10],
+    [Faces.JACK, 11],
+    [Faces.QUEEN, 12],
+    [Faces.KING, 13],
+]);
 
 export class Card {
     public get index(): number {
@@ -43,7 +43,7 @@ export class Card {
     }
 
     public get value(): number {
-        return FaceValues[this.face];
+        return FaceValues.get(this.face);
     }
 
     constructor(public suit: Suits, public face: Faces, private _index: number = -1) {
@@ -79,6 +79,10 @@ export class StandardDeck {
 
     constructor() {
         this._cards = new Array<Card>();
+        this.createCards();
+    }
+
+    protected createCards() {
         let index: number = 0;
         for (const suitKey of Object.keys(Suits)) {
             for (const faceKey of Object.keys(Faces)) {
@@ -226,7 +230,7 @@ export abstract class CardPlayer {
     protected constructor(private _hand: CardHand) {
     }
 
-    abstract scoreHand();
+    abstract scoreHand(): any;
 
     takeCards(cards: Array<Card>) {
         this.hand.addCards(cards);

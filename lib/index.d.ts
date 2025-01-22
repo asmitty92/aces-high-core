@@ -36,6 +36,7 @@ export declare class StandardDeck {
     get cards(): Array<Card>;
     protected set cards(value: Array<Card>);
     constructor();
+    protected createCards(): void;
     toString(): string;
     numberOfCards(): number;
     cardAt(index: number): Card;
