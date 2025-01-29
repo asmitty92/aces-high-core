@@ -10,6 +10,7 @@
     "build": "jsii",
     "build:watch": "jsii --watch",
     "format": "prettier . -w && prettier . -c",
+    "lint": "eslint --fix . && eslint .",
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
     "deploy:npm": "publib-npm",
