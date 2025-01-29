@@ -7,7 +7,6 @@ permissions:
   pull-requests: write
   deployments: read
   checks: write
-  workflows: write
 
 on:
   push:
