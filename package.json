@@ -9,6 +9,7 @@
     "test": "jest --coverage",
     "build": "jsii",
     "build:watch": "jsii --watch",
+    "format": "prettier . -w && prettier . -c",
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
     "deploy:npm": "publib-npm",
