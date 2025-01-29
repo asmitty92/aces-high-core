@@ -37,6 +37,7 @@ const FaceValues: Map<Faces, number> = new Map([
     [Faces.KING, 13],
 ]);
 
+
 export class Card {
     public get index(): number {
         return this._index;
