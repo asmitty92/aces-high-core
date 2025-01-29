@@ -14,7 +14,7 @@
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
     "deploy:npm": "publib-npm",
-    "deploy:all": "publib-npm && publib-pypi"
+    "deploy:all": "publib-pypi && publib-npm"
   },
   "repository": {
     "type": "git",

@@ -85,9 +85,13 @@ jobs:
         run: |
           npm run package
 
-      - name: JSII Deploy
+      - name: JSII Deploy Python
         run: |
-          npm run deploy:all
+          npm run deploy:pypi
+      
+      - name: JSII Deploy NPM
+        run: |
+          npm run deploy:npm
 
         
 
