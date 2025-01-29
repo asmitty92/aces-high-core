@@ -56,7 +56,7 @@ jobs:
     name: Package and Deploy
     runs-on: ubuntu-latest
     env:
-      NODE_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       TWINE_USERNAME: __token__
       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
     needs: quality-check
