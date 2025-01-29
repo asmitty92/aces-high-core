@@ -50,7 +50,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5.0.0
         with:
-          commit-message: Auto-format changes and new build output
+          commit_message: Auto-format changes and new build output
     
   deploy:
     name: Package and Deploy
