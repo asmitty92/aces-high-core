@@ -1,0 +1,37 @@
+name: Pipeline
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+  pull-requests: write
+  deployments: read
+  checks: write
+
+on:
+  push:
+  workflow_dispatch:
+
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chekcout main repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run Tests
+        run: |
+          npm run test
+    
+  
