@@ -14,8 +14,8 @@ on:
 
 
 jobs:
-  run-tests:
-    name: Run Tests
+  quality-check:
+    name: Run Tests, Formatting, and Linting
     runs-on: ubuntu-latest
     steps:
       - name: Chekcout main repo
@@ -29,6 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          
 
       - name: Run format
         run: |
@@ -51,4 +52,41 @@ jobs:
         with:
           commit-message: Auto-format changes and new build output
     
-  
+  deploy:
+    name: Package and Deploy
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      TWINE_USERNAME: __token__
+      TWINE_PASSWORD: ${{ PYPI_TOKEN }}
+    needs: quality-check
+    if: |
+      !failure() &&
+      github.event_name == 'workflow_dispatch' &&
+      github.ref_name == 'main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: JSII Package
+        run: |
+          npm run package
+
+      - name: JSII Deploy
+        run: |
+          npm run deploy:all
+
+        
+
+      
+      
+    
