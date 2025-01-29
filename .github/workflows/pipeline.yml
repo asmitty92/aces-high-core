@@ -58,7 +58,7 @@ jobs:
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       TWINE_USERNAME: __token__
-      TWINE_PASSWORD: ${{ PYPI_TOKEN }}
+      TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
     needs: quality-check
     if: |
       !failure() &&
