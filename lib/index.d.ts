@@ -62,6 +62,6 @@ export declare abstract class CardPlayer {
     private _hand;
     get hand(): CardHand;
     protected constructor(_hand: CardHand);
-    abstract scoreHand(): any;
+    abstract scoreHand(): void;
     takeCards(cards: Array<Card>): void;
 }
