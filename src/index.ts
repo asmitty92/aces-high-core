@@ -231,7 +231,7 @@ export abstract class CardPlayer {
     protected constructor(private _hand: CardHand) {
     }
 
-    abstract scoreHand(): any;
+    abstract scoreHand(): void;
 
     takeCards(cards: Array<Card>) {
         this.hand.addCards(cards);
