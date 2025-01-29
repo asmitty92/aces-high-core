@@ -55,6 +55,10 @@ jobs:
   deploy:
     name: Package and Deploy
     runs-on: ubuntu-latest
+    env:
+      NODE_TOKEN: ${{ secrets.NPM_TOKEN }}
+      TWINE_USERNAME: __token__
+      TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
     needs: quality-check
     if: |
       !failure() &&
@@ -84,10 +88,6 @@ jobs:
       - name: JSII Deploy
         run: |
           npm run deploy:all
-        env:
-          NODE_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
 
         
 
