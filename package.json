@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rubyclimber/aces-high-core.git"
+    "url": "git+https://github.com/rubyclimber/aces-high-core.git"
   },
   "author": "Aaron Smith",
   "license": "MIT",
