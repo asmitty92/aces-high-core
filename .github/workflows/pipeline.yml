@@ -102,7 +102,6 @@ jobs:
       
       - name: JSII Deploy NPM
         run: |
-          npm login
           npm run deploy:npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
