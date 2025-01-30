@@ -80,8 +80,8 @@ jobs:
       
       - name: Install twine
         run: |
-          pip install package>=24.0 --user
-          pip install twine>=6.1.0 --user
+          pip install packaging --user
+          pip install twine --user
 
       - name: Install dependencies
         run: |
