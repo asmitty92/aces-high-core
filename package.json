@@ -1,6 +1,6 @@
 {
   "name": "aces-high-core",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Base framework for card and deck functionality",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
