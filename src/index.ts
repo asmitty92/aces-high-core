@@ -81,7 +81,7 @@ export abstract class DeckOfCards {
   }
 
   constructor() {
-    this._cards = new Array<Card>();  
+    this._cards = new Array<Card>();
   }
 
   toString(): string {
