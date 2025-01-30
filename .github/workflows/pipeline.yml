@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       TWINE_USERNAME: __token__
       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
     needs: quality-check
@@ -105,11 +106,3 @@ jobs:
       - name: JSII Deploy NPM
         run: |
           npm run deploy:npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-        
-
-      
-      
-    
