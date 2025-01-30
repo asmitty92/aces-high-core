@@ -72,6 +72,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+      
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      
+      - name: Install twine
+        run: |
+          pip install package>=24.0 --user
+          pip install twine>=6.1.0 --user
 
       - name: Install dependencies
         run: |
