@@ -31,12 +31,11 @@ export declare class Card {
     isInDeck(): boolean;
     toString(): string;
 }
-export declare class StandardDeck {
+export declare abstract class DeckOfCards {
     private _cards;
     get cards(): Array<Card>;
     protected set cards(value: Array<Card>);
     constructor();
-    protected createCards(): void;
     toString(): string;
     numberOfCards(): number;
     cardAt(index: number): Card;
@@ -45,11 +44,15 @@ export declare class StandardDeck {
     faroShuffle(): void;
     runningCutsShuffle(): void;
     fullShuffle(): void;
-    dealCard(): Card;
+    abstract deal(): Card | Card[];
     protected isEmpty(): boolean;
     protected getRandomIndex(min: number, max: number): number;
     protected coinFlip(): number;
     protected splitDeck(): Array<Array<Card>>;
+}
+export declare class StandardDeck extends DeckOfCards {
+    constructor();
+    deal(): Card | Card[];
 }
 export declare abstract class CardHand {
     private _cards;

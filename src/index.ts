@@ -69,7 +69,7 @@ export class Card {
   }
 }
 
-export class StandardDeck {
+export abstract class DeckOfCards {
   private _cards: Array<Card>;
 
   get cards(): Array<Card> {
@@ -81,17 +81,7 @@ export class StandardDeck {
   }
 
   constructor() {
-    this._cards = new Array<Card>();
-    this.createCards();
-  }
-
-  protected createCards() {
-    let index: number = 0;
-    for (const suitKey of Object.keys(Suits)) {
-      for (const faceKey of Object.keys(Faces)) {
-        this.cards.push(new Card(Suits[suitKey], Faces[faceKey], index++));
-      }
-    }
+    this._cards = new Array<Card>();  
   }
 
   toString(): string {
@@ -179,11 +169,7 @@ export class StandardDeck {
     this.runningCutsShuffle();
   }
 
-  dealCard(): Card {
-    if (this.isEmpty()) throw new TypeError("Cannot deal card, deck is empty");
-
-    return this.cards.shift();
-  }
+  abstract deal(): Card | Card[];
 
   protected isEmpty(): boolean {
     return this.cards.length <= 0;
@@ -207,6 +193,24 @@ export class StandardDeck {
     const bottom = [...this.cards.slice(midpoint)];
 
     return [top, bottom];
+  }
+}
+
+export class StandardDeck extends DeckOfCards {
+  constructor() {
+    super();
+    let index: number = 0;
+    for (const suitKey of Object.keys(Suits)) {
+      for (const faceKey of Object.keys(Faces)) {
+        this.cards.push(new Card(Suits[suitKey], Faces[faceKey], index++));
+      }
+    }
+  }
+
+  deal(): Card | Card[] {
+    if (this.isEmpty()) throw new TypeError("Cannot deal card, deck is empty");
+
+    return this.cards.shift();
   }
 }
 

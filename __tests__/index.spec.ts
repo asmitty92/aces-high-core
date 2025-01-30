@@ -2,7 +2,7 @@ import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
-  let cuts = [];
+  let cuts = new Array<number>();
   for (let i = 1; i < deck.numberOfCards(); i++) {
     const currentCard = deck.cardAt(i);
     const previousCard = deck.cardAt(i - 1);
@@ -265,7 +265,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should raise error when deck length is invalid", () => {
-      deck.dealCard();
+      deck.deal();
 
       expect(() => deck.faroShuffle()).toThrow(TypeError);
     });
@@ -285,7 +285,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should raise error when deck length is invalid", () => {
-      deck.dealCard();
+      deck.deal();
 
       expect(() => deck.riffleShuffle()).toThrow(TypeError);
     });
@@ -308,7 +308,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should throw an error if the deck is missing cards", () => {
-      deck.dealCard();
+      deck.deal();
 
       expect(() => deck.runningCutsShuffle()).toThrow(TypeError);
     });
@@ -332,11 +332,11 @@ describe("StandardDeck class", () => {
     });
   });
 
-  describe("dealCard() method", () => {
+  describe("deal() method", () => {
     it("should deal the first card in a new deck", () => {
       const expectedCard = deck.cardAt(0);
 
-      const card = deck.dealCard();
+      const card = deck.deal();
 
       expect(card).toEqual(expectedCard);
     });
@@ -345,7 +345,7 @@ describe("StandardDeck class", () => {
       deck.randomShuffle();
       const expectedCard = deck.cardAt(0);
 
-      const card = deck.dealCard();
+      const card = deck.deal();
 
       expect(card).toEqual(expectedCard);
     });
@@ -353,11 +353,11 @@ describe("StandardDeck class", () => {
     it("should raise error if deck is dealt when it is empty", () => {
       const numberOfCards = deck.numberOfCards();
       for (let i = 0; i < numberOfCards; i++) {
-        const card = deck.dealCard();
+        const card = deck.deal();
         console.log(i, card);
       }
 
-      expect(() => deck.dealCard()).toThrow(TypeError);
+      expect(() => deck.deal()).toThrow(TypeError);
     });
   });
 
