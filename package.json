@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
+  "files": [
+    "package.json",
+    "README.md",
+    "lib/**/*"
+  ],
   "scripts": {
     "test": "jest --coverage",
     "build": "jsii",
@@ -13,7 +18,7 @@
     "lint": "eslint --fix . && eslint .",
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
-    "deploy:npm": "publib-npm",
+    "deploy:npm": "npm publish --provenance --access public",
     "deploy:all": "publib-pypi && publib-npm"
   },
   "repository": {
