@@ -72,6 +72,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
       
       - name: Setup python
         uses: actions/setup-python@v5
@@ -103,6 +104,8 @@ jobs:
         run: |
           npm login
           npm run deploy:npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
         
 
