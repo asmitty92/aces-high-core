@@ -18,12 +18,12 @@
     "lint": "eslint --fix . && eslint .",
     "package": "jsii-pacmak",
     "deploy:pypi": "publib-pypi",
-    "deploy:npm": "npm publish --provenance --access public",
+    "deploy:npm": "publib-npm",
     "deploy:all": "publib-pypi && publib-npm"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rubyclimber/aces-high-core.git"
+    "url": "https://github.com/rubyclimber/aces-high-core.git"
   },
   "author": "Aaron Smith",
   "license": "MIT",
