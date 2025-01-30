@@ -229,11 +229,19 @@ export abstract class CardHand {
 }
 
 export abstract class CardPlayer {
+  private _score: number;
+
   get hand(): CardHand {
     return this._hand;
   }
 
-  protected constructor(private _hand: CardHand) {}
+  get score(): number {
+    return this._score;
+  }
+
+  protected constructor(private _hand: CardHand) {
+    this._score = 0;
+  }
 
   abstract scoreHand(): void;
 
