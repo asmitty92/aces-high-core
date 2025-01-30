@@ -96,9 +96,11 @@ jobs:
         run: |
           npm run package
 
-      # - name: JSII Deploy Python
-      #   run: |
-      #     npm run deploy:pypi
+      - name: JSII Deploy Python
+        run: |
+          npm run deploy:pypi
+
+      - run: cat /home/runner/work/_temp/.npmrc
       
       - name: JSII Deploy NPM
         run: |
