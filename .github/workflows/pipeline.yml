@@ -101,6 +101,7 @@ jobs:
       
       - name: JSII Deploy NPM
         run: |
+          npm login
           npm run deploy:npm
 
         
