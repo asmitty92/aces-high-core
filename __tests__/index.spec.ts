@@ -420,6 +420,12 @@ describe("CardPlayer abstract class", () => {
     expect(player.hand).toEqual(hand);
   });
 
+  describe("Score getter", () => {
+    const player = new TestPlayer(new TestHand([]));
+
+    expect(player.score).toEqual(0);
+  });
+
   describe("takeCards method", () => {
     const card = new Card(Suits.DIAMONDS, Faces.JACK);
     const player = new TestPlayer(new TestHand([]));

@@ -236,7 +236,7 @@ export abstract class CardPlayer {
   }
 
   get score(): number {
-    return this.score;
+    return this.myScore;
   }
 
   protected constructor(protected myHand: CardHand) {
