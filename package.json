@@ -1,6 +1,6 @@
 {
   "name": "aces-high-core",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Base framework for card and deck functionality",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -8,7 +8,8 @@
   "files": [
     "package.json",
     "README.md",
-    "lib/**/*"
+    "lib/**/*",
+    ".jsii"
   ],
   "scripts": {
     "test": "jest --coverage",
@@ -51,11 +52,6 @@
     "tsconfig": "tsconfig.json",
     "validateTsconfig": "minimal",
     "outdir": "dist",
-    "targets": {
-      "python": {
-        "distName": "aces-high-core",
-        "module": "aces_high_core"
-      }
-    }
+    "targets": {}
   }
 }

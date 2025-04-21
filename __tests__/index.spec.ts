@@ -1,4 +1,4 @@
-import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer } from "../src";
+import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer, getCombinations } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
@@ -34,6 +34,19 @@ class TestPlayer extends CardPlayer {
 
   scoreHand() {}
 }
+
+describe("getCombinations function", () => {
+  it("should find all combinations in a list", async () => {
+    const combinations = getCombinations([1, 2, 3], 2);
+
+    expect(combinations.length).toEqual(3);
+    expect(combinations).toEqual([
+      [1, 2],
+      [1, 3],
+      [2, 3],
+    ]);
+  });
+});
 
 describe("Card class", () => {
   describe("isAce() method", () => {
