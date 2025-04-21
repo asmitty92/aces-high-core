@@ -69,8 +69,8 @@ describe("getCombinations function", () => {
     expect(combinations).toEqual([[1, 2, 3]]);
   });
   it("should return all single-item combinations when itemCount is 1", () => {
-    const combinations = getCombinations(['a', 'b', 'c'], 1);
-    expect(combinations).toEqual([['a'], ['b'], ['c']]);
+    const combinations = getCombinations(["a", "b", "c"], 1);
+    expect(combinations).toEqual([["a"], ["b"], ["c"]]);
   });
   it("should return correct number of combinations (n choose k)", () => {
     const items = [1, 2, 3, 4, 5];
@@ -85,7 +85,7 @@ describe("getCombinations function", () => {
     const items = [1, 2, 3, 4];
     const combinations = getCombinations(items, 2);
 
-    const stringified = combinations.map(c => c.join(','));
+    const stringified = combinations.map((c) => c.join(","));
     const unique = new Set(stringified);
 
     expect(unique.size).toEqual(combinations.length);
