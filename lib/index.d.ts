@@ -1,3 +1,8 @@
+declare const suits: readonly ["Clubs", "Hearts", "Spades", "Diamonds"];
+type Suit = (typeof suits)[number];
+declare const faces: readonly ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+type Face = (typeof faces)[number];
+export declare function getCombinations<T>(items: T[], itemCount: number): T[][];
 export declare enum Suits {
     CLUBS = "Clubs",
     HEARTS = "Hearts",
@@ -20,12 +25,12 @@ export declare enum Faces {
     KING = "King"
 }
 export declare class Card {
-    suit: Suits;
-    face: Faces;
+    suit: Suit;
+    face: Face;
     private _index;
     get index(): number;
     get value(): number;
-    constructor(suit: Suits, face: Faces, _index?: number);
+    constructor(suit: Suit, face: Face, _index?: number);
     isAce(): boolean;
     isKing(): boolean;
     isInDeck(): boolean;
@@ -70,3 +75,4 @@ export declare abstract class CardPlayer {
     abstract scoreHand(): void;
     takeCards(cards: Array<Card>): void;
 }
+export {};

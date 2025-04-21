@@ -1,4 +1,12 @@
-import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer, getCombinations } from "../src";
+import {
+  Card,
+  CardHand,
+  Faces,
+  StandardDeck,
+  Suits,
+  CardPlayer,
+  getCombinations,
+} from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
