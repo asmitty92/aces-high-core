@@ -25,6 +25,12 @@ function getCuts(deck: StandardDeck): Array<number> {
   return cuts;
 }
 
+function nChooseK(n: number, k: number): number {
+  if (k > n) return 0;
+  if (k === 0 || k === n) return 1;
+  return nChooseK(n - 1, k - 1) + nChooseK(n - 1, k);
+}
+
 class TestHand extends CardHand {
   constructor(cards: Array<Card>) {
     super(cards);
@@ -53,6 +59,36 @@ describe("getCombinations function", () => {
       [1, 3],
       [2, 3],
     ]);
+  });
+  it("should return an empty array if itemCount is greater than items.length", () => {
+    const combinations = getCombinations([1, 2], 3);
+    expect(combinations).toEqual([]);
+  });
+  it("should return one combination when itemCount equals items.length", () => {
+    const combinations = getCombinations([1, 2, 3], 3);
+    expect(combinations).toEqual([[1, 2, 3]]);
+  });
+  it("should return all single-item combinations when itemCount is 1", () => {
+    const combinations = getCombinations(['a', 'b', 'c'], 1);
+    expect(combinations).toEqual([['a'], ['b'], ['c']]);
+  });
+  it("should return correct number of combinations (n choose k)", () => {
+    const items = [1, 2, 3, 4, 5];
+    const k = 3;
+    const expectedCount = nChooseK(items.length, k);
+
+    const combinations = getCombinations(items, k);
+
+    expect(combinations.length).toEqual(expectedCount);
+  });
+  it("should return only unique combinations", () => {
+    const items = [1, 2, 3, 4];
+    const combinations = getCombinations(items, 2);
+
+    const stringified = combinations.map(c => c.join(','));
+    const unique = new Set(stringified);
+
+    expect(unique.size).toEqual(combinations.length);
   });
 });
 
