@@ -386,9 +386,7 @@ describe("StandardDeck class", () => {
 
       expect(cuts.at(0)).toBeGreaterThanOrEqual(1);
       expect(cuts.at(0)).toBeLessThanOrEqual(8);
-      expect(cuts.at(-1)).toBeGreaterThanOrEqual(7);
-      expect(cuts.at(-1)).toBeLessThanOrEqual(19);
-      for (const cut of cuts.slice(1, -1)) {
+      for (const cut of cuts.slice(1)) {
         expect(cut).toBeGreaterThanOrEqual(4);
         expect(cut).toBeLessThanOrEqual(8);
       }
@@ -409,9 +407,7 @@ describe("StandardDeck class", () => {
 
         expect(cuts.at(0)).toBeGreaterThanOrEqual(1);
         expect(cuts.at(0)).toBeLessThanOrEqual(8);
-        expect(cuts.at(-1)).toBeGreaterThanOrEqual(7);
-        expect(cuts.at(-1)).toBeLessThanOrEqual(19);
-        for (const cut of cuts.slice(1, -1)) {
+        for (const cut of cuts.slice(1)) {
           expect(cut).toBeGreaterThanOrEqual(4);
           expect(cut).toBeLessThanOrEqual(8);
         }

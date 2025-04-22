@@ -201,20 +201,16 @@ export abstract class DeckOfCards {
     if (this.numberOfCards() % 4 != 0)
       throw new TypeError("Only a full deck can be shuffled");
 
-    const cutSizes = [4, 5, 6, 7, 8];
-    const quarter = this.numberOfCards() / 4;
-    const halfQuarter = quarter / 2;
-    const cutStart =
-      quarter + this.getRandomIndex(-1 * halfQuarter, halfQuarter - 1);
-    let toCut = this.cards.slice(cutStart);
-    this.cards = this.cards.slice(0, cutStart);
+    const newDeck: Card[] = [];
+    let deckCopy = [...this.cards];
 
-    while (toCut.length > 0) {
-      const cutIndex = this.getRandomIndex(0, cutSizes.length - 1);
-      const cutSize = cutSizes[cutIndex];
-      this.cards = toCut.slice(0, cutSize).concat(this.cards);
-      toCut = toCut.slice(cutSize);
+    while (deckCopy.length > 0) {
+      const packetSize = this.getRandomIndex(4, 8); // simulate pulling off 1–4 cards
+      const packet = deckCopy.splice(0, packetSize);
+      newDeck.unshift(...packet); // place packets on top in reverse
     }
+
+    this.cards = newDeck;
   }
 
   fullShuffle(): void {
