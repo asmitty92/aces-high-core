@@ -202,7 +202,7 @@ export abstract class DeckOfCards {
       throw new TypeError("Only a full deck can be shuffled");
 
     const newDeck: Card[] = [];
-    let deckCopy = [...this.cards];
+    const deckCopy = [...this.cards];
 
     while (deckCopy.length > 0) {
       const packetSize = this.getRandomIndex(4, 8); // simulate pulling off 1–4 cards
