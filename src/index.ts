@@ -106,15 +106,6 @@ export class Card {
   toString(): string {
     return `The ${this.face} of ${this.suit}`;
   }
-
-  equals(other: Card) {
-    return (
-      other instanceof Card &&
-      this.suit === other.suit &&
-      this.face === other.face &&
-      this.value === other.value
-    );
-  }
 }
 
 export abstract class DeckOfCards {

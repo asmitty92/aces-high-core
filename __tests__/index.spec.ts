@@ -153,39 +153,6 @@ describe("Card class", () => {
       expect(new Card(Suits.SPADES, Faces.KING).value).toBe(13);
     });
   });
-
-  describe("equals methods", () => {
-    let card: Card;
-    beforeEach(() => {
-      card = new Card(Suits.SPADES, Faces.ACE);
-    });
-
-    it("should be equal to itself", async () => {
-      expect(card.equals(card)).toBe(true);
-    });
-
-    it("should be equal to a separate instance with the same suit and face", async () => {
-      const other = new Card(Suits.SPADES, Faces.ACE);
-      expect(other.equals(card)).toBe(true);
-    });
-
-    it("should not be equal if suit is same and face is different", async () => {
-      const other = new Card(Suits.SPADES, Faces.KING);
-      expect(other.equals(card)).toBe(false);
-    });
-
-    it("should not be equal if face is same and suit is different", async () => {
-      const other = new Card(Suits.CLUBS, Faces.ACE);
-      expect(other.equals(card)).toBe(false);
-    });
-
-    it("should not be equal if other is undefined/null", async () => {
-      const other: Card = undefined;
-      expect(card.equals(other)).toBe(false);
-      const other2: Card = null;
-      expect(card.equals(other2)).toBe(false);
-    });
-  });
 });
 
 describe("StandardDeck class", () => {
