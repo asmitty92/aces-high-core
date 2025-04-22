@@ -53,7 +53,7 @@ export declare abstract class DeckOfCards {
     protected isEmpty(): boolean;
     protected getRandomIndex(min: number, max: number): number;
     protected coinFlip(): number;
-    protected splitDeck(): Array<Array<Card>>;
+    splitDeck(): Array<Array<Card>>;
 }
 export declare class StandardDeck extends DeckOfCards {
     constructor();
