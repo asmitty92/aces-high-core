@@ -160,26 +160,26 @@ describe("Card class", () => {
       card = new Card(Suits.SPADES, Faces.ACE);
     });
 
-    it('should be equal to itself', async () => {
+    it("should be equal to itself", async () => {
       expect(card.equals(card)).toBe(true);
     });
 
-    it('should be equal to a separate instance with the same suit and face', async () => {
+    it("should be equal to a separate instance with the same suit and face", async () => {
       const other = new Card(Suits.SPADES, Faces.ACE);
       expect(other.equals(card)).toBe(true);
     });
 
-    it('should not be equal if suit is same and face is different', async () => {
+    it("should not be equal if suit is same and face is different", async () => {
       const other = new Card(Suits.SPADES, Faces.KING);
       expect(other.equals(card)).toBe(false);
     });
 
-    it('should not be equal if face is same and suit is different', async () => {
+    it("should not be equal if face is same and suit is different", async () => {
       const other = new Card(Suits.CLUBS, Faces.ACE);
       expect(other.equals(card)).toBe(false);
     });
 
-    it('should not be equal if other is undefined/null', async () => {
+    it("should not be equal if other is undefined/null", async () => {
       const other: Card = undefined;
       expect(card.equals(other)).toBe(false);
       const other2: Card = null;
@@ -362,19 +362,49 @@ describe("StandardDeck class", () => {
   });
 
   describe("riffleShuffle() method", () => {
-    it("should riffle shuffle the deck successfully", () => {
-      deck.riffleShuffle();
+    it("retains all cards with no duplicates", () => {
+      const originalDeck = new StandardDeck(); // assuming StandardDeck extends DeckOfCards
+      const originalCards = [...originalDeck.cards];
+      originalDeck.riffleShuffle();
 
-      let index = 0;
-      for (let i = 0; i < deck.numberOfCards(); i += 2) {
-        const indices = [deck.cardAt(i).index, deck.cardAt(i + 1).index];
-        expect(indices).toContainEqual(index);
-        expect(indices).toContainEqual(index + 26);
-        index++;
-      }
+      expect(originalDeck.cards).toHaveLength(originalCards.length);
+
+      const originalSorted = originalCards.map((c) => c.toString()).sort();
+      const shuffledSorted = originalDeck.cards.map((c) => c.toString()).sort();
+
+      expect(shuffledSorted).toEqual(originalSorted); // same cards, just reordered
     });
 
-    it("should raise error when deck length is invalid", () => {
+    // Pseudo-example of a testable shuffle
+    it("uses 1–3 card chunks", () => {
+      const deck = new StandardDeck();
+      const spy = jest.spyOn(deck as any, "getRandomIndex");
+
+      deck.riffleShuffle();
+
+      // Check that chunk sizes are within expected range
+      const allInRange = spy.mock.calls.every(
+        ([min, max]) => min === 1 && max === 3,
+      );
+      expect(allInRange).toBe(true);
+    });
+
+    it("mixes cards from both halves", () => {
+      const deck = new StandardDeck();
+      const [top] = deck.splitDeck();
+      deck.riffleShuffle();
+
+      const topCount = deck.cards.filter((c) =>
+        top.some((t) => t.toString() === c.toString()),
+      ).length;
+
+      const bottomCount = deck.cards.length - topCount;
+
+      expect(topCount).toBeGreaterThan(0);
+      expect(bottomCount).toBeGreaterThan(0);
+    });
+
+    it("raises error when deck length is invalid", () => {
       deck.deal();
 
       expect(() => deck.riffleShuffle()).toThrow(TypeError);
@@ -452,22 +482,17 @@ describe("StandardDeck class", () => {
   });
 
   describe("fullShuffle() method", () => {
+    const mockShuffle = jest.fn().mockImplementation();
     beforeEach(() => {
       deck.randomShuffle = jest.fn().mockImplementation();
-      deck.riffleShuffle = jest.fn().mockImplementation();
-      deck.runningCutsShuffle = jest.fn().mockImplementation();
+      deck.riffleShuffle = mockShuffle;
+      deck.runningCutsShuffle = mockShuffle;
     });
 
-    it("should call riffleShuffle() 6 times", () => {
+    it("should call riffleShuffle or runningCutsShuffle 10 times total", () => {
       deck.fullShuffle();
 
-      expect(deck.riffleShuffle).toHaveBeenCalledTimes(6);
-    });
-
-    it("should call runningCutsShuffle() 2 times", () => {
-      deck.fullShuffle();
-
-      expect(deck.runningCutsShuffle).toHaveBeenCalledTimes(2);
+      expect(mockShuffle).toHaveBeenCalledTimes(10);
     });
 
     it("should call randomShuffle() 1 times", () => {

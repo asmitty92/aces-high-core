@@ -108,7 +108,12 @@ export class Card {
   }
 
   equals(other: Card) {
-    return other instanceof Card && this.suit === other.suit && this.face === other.face && this.value === other.value;
+    return (
+      other instanceof Card &&
+      this.suit === other.suit &&
+      this.face === other.face &&
+      this.value === other.value
+    );
   }
 }
 
@@ -150,20 +155,43 @@ export abstract class DeckOfCards {
 
   riffleShuffle(): void {
     const [top, bottom] = this.splitDeck();
+    const shuffled: Card[] = [];
 
-    const cards = [];
-    for (let i = 0; i < top.length; i++) {
-      const flip = this.coinFlip();
-      if (flip == 1) {
-        cards.push(top[i]);
-        cards.push(bottom[i]);
+    let topIndex = 0;
+    let bottomIndex = 0;
+
+    while (topIndex < top.length || bottomIndex < bottom.length) {
+      // Randomly choose which half to drop from first
+      const startWithTop = this.coinFlip() === 0;
+
+      if (startWithTop) {
+        const chunkSize = this.getRandomIndex(1, 3); // drop 1–3 cards from top
+        for (let i = 0; i < chunkSize && topIndex < top.length; i++) {
+          shuffled.push(top[topIndex++]);
+        }
+
+        const otherChunkSize = this.getRandomIndex(1, 3); // drop 1–3 cards from bottom
+        for (
+          let i = 0;
+          i < otherChunkSize && bottomIndex < bottom.length;
+          i++
+        ) {
+          shuffled.push(bottom[bottomIndex++]);
+        }
       } else {
-        cards.push(bottom[i]);
-        cards.push(top[i]);
+        const chunkSize = this.getRandomIndex(1, 3); // drop 1–3 cards from bottom
+        for (let i = 0; i < chunkSize && bottomIndex < bottom.length; i++) {
+          shuffled.push(bottom[bottomIndex++]);
+        }
+
+        const otherChunkSize = this.getRandomIndex(1, 3); // drop 1–3 cards from top
+        for (let i = 0; i < otherChunkSize && topIndex < top.length; i++) {
+          shuffled.push(top[topIndex++]);
+        }
       }
     }
 
-    this.cards = cards;
+    this.cards = shuffled;
   }
 
   faroShuffle(): void {
@@ -199,17 +227,18 @@ export abstract class DeckOfCards {
   }
 
   fullShuffle(): void {
-    this.randomShuffle();
+    this.randomShuffle(); // Still start with a Fisher-Yates-style shuffle
 
-    this.riffleShuffle();
-    this.riffleShuffle();
-    this.riffleShuffle();
-    this.runningCutsShuffle();
+    const totalShuffles = 10;
 
-    this.riffleShuffle();
-    this.riffleShuffle();
-    this.riffleShuffle();
-    this.runningCutsShuffle();
+    for (let i = 0; i < totalShuffles; i++) {
+      const random = this.getRandomIndex(1, 5); // 1 to 4 = riffle, 5 = running cut
+      if (random === 5) {
+        this.runningCutsShuffle();
+      } else {
+        this.riffleShuffle();
+      }
+    }
   }
 
   abstract deal(): Card | Card[];
@@ -226,7 +255,7 @@ export abstract class DeckOfCards {
     return Math.floor(Math.random() * 100) % 2;
   }
 
-  protected splitDeck(): Array<Array<Card>> {
+  splitDeck(): Array<Array<Card>> {
     if (this.numberOfCards() % 2 != 0) {
       throw new TypeError("Invalid number of cards to shuffle.");
     }
