@@ -42,8 +42,8 @@ class TestHand extends CardHand {
 }
 
 class TestPlayer extends CardPlayer {
-  constructor(hand: CardHand) {
-    super(hand);
+  constructor() {
+    super();
   }
 
   scoreHand() {}
@@ -492,16 +492,8 @@ describe("CardHand abstract class", () => {
 });
 
 describe("CardPlayer abstract class", () => {
-  describe("Hand getter", () => {
-    const hand = new TestHand([]);
-
-    const player = new TestPlayer(hand);
-
-    expect(player.hand).toEqual(hand);
-  });
-
   describe("Score getter", () => {
-    const player = new TestPlayer(new TestHand([]));
+    const player = new TestPlayer();
 
     expect(player.score).toEqual(0);
   });
