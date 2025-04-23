@@ -304,7 +304,5 @@ export abstract class CardPlayer {
 
   abstract scoreHand(): void;
 
-  takeCards(cards: Array<Card>) {
-    this.hand.addCards(cards);
-  }
+  abstract takeCards(cards: Array<Card>): void;
 }

@@ -47,6 +47,8 @@ class TestPlayer extends CardPlayer {
   }
 
   scoreHand() {}
+
+  takeCards(cards: Array<Card>): void {}
 }
 
 describe("getCombinations function", () => {
@@ -502,14 +504,5 @@ describe("CardPlayer abstract class", () => {
     const player = new TestPlayer(new TestHand([]));
 
     expect(player.score).toEqual(0);
-  });
-
-  describe("takeCards method", () => {
-    const card = new Card(Suits.DIAMONDS, Faces.JACK);
-    const player = new TestPlayer(new TestHand([]));
-
-    player.takeCards([card]);
-
-    expect(player.hand.cards).toContain(card);
   });
 });
