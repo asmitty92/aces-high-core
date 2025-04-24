@@ -110,6 +110,7 @@ export class Card {
 
 export abstract class DeckOfCards {
   private _cards: Array<Card>;
+  protected _counter: number;
 
   get cards(): Array<Card> {
     return this._cards;
@@ -121,6 +122,7 @@ export abstract class DeckOfCards {
 
   constructor() {
     this._cards = new Array<Card>();
+    this._counter = 0;
   }
 
   toString(): string {
@@ -136,6 +138,7 @@ export abstract class DeckOfCards {
   }
 
   randomShuffle(): void {
+    if (this._counter > 0) this.reset();
     for (let i = 0; i < this.numberOfCards(); i++) {
       const swapIndex = this.getRandomIndex(0, this.numberOfCards() - 1);
       const temp = this.cardAt(i);
@@ -145,6 +148,7 @@ export abstract class DeckOfCards {
   }
 
   riffleShuffle(): void {
+    if (this._counter > 0) this.reset();
     const [top, bottom] = this.splitDeck();
     const shuffled: Card[] = [];
 
@@ -186,6 +190,7 @@ export abstract class DeckOfCards {
   }
 
   faroShuffle(): void {
+    if (this._counter > 0) this.reset();
     const [top, bottom] = this.splitDeck();
 
     const cards = [];
@@ -198,8 +203,7 @@ export abstract class DeckOfCards {
   }
 
   runningCutsShuffle(): void {
-    if (this.numberOfCards() % 4 != 0)
-      throw new TypeError("Only a full deck can be shuffled");
+    if (this._counter > 0) this.reset();
 
     const newDeck: Card[] = [];
     const deckCopy = [...this.cards];
@@ -214,6 +218,7 @@ export abstract class DeckOfCards {
   }
 
   fullShuffle(): void {
+    if (this._counter > 0) this.reset();
     this.randomShuffle(); // Still start with a Fisher-Yates-style shuffle
 
     const totalShuffles = 10;
@@ -228,25 +233,23 @@ export abstract class DeckOfCards {
     }
   }
 
-  abstract deal(): Card | Card[];
-
   protected isEmpty(): boolean {
     return this.cards.length <= 0;
   }
 
   protected getRandomIndex(min: number, max: number): number {
-    return Math.ceil(Math.random() * (max - min) + min);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   protected coinFlip(): number {
     return Math.floor(Math.random() * 100) % 2;
   }
 
-  splitDeck(): Array<Array<Card>> {
-    if (this.numberOfCards() % 2 != 0) {
-      throw new TypeError("Invalid number of cards to shuffle.");
-    }
+  protected reset: VoidFunction = () => {
+    this._counter = 0;
+  }
 
+  private splitDeck(): Array<Array<Card>> {
     const midpoint = this.cards.length / 2;
     const top = [...this.cards.slice(0, midpoint)];
     const bottom = [...this.cards.slice(midpoint)];
@@ -258,18 +261,20 @@ export abstract class DeckOfCards {
 export class StandardDeck extends DeckOfCards {
   constructor() {
     super();
-    let index: number = 0;
+    this._counter = 0;
     for (const suitKey of suits) {
       for (const faceKey of faces) {
-        this.cards.push(new Card(suitKey, faceKey, index++));
+        this.cards.push(new Card(suitKey, faceKey, this._counter++));
       }
     }
+    //reset counter because it's later used for dealing
+    this._counter = 0;
   }
 
-  deal(): Card | Card[] {
-    if (this.isEmpty()) throw new TypeError("Cannot deal card, deck is empty");
+  deal(): Card {
+    if (this._counter >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
 
-    return this.cards.shift();
+    return this.cards[this._counter++];
   }
 }
 

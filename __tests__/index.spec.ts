@@ -322,12 +322,6 @@ describe("StandardDeck class", () => {
         expectedIndex += 1;
       }
     });
-
-    it("should raise error when deck length is invalid", () => {
-      deck.deal();
-
-      expect(() => deck.faroShuffle()).toThrow(TypeError);
-    });
   });
 
   describe("riffleShuffle() method", () => {
@@ -360,7 +354,8 @@ describe("StandardDeck class", () => {
 
     it("mixes cards from both halves", () => {
       const deck = new StandardDeck();
-      const [top] = deck.splitDeck();
+      const midpoint = deck.cards.length / 2;
+      const top = [...deck.cards.slice(0, midpoint)];
       deck.riffleShuffle();
 
       const topCount = deck.cards.filter((c) =>
@@ -371,12 +366,6 @@ describe("StandardDeck class", () => {
 
       expect(topCount).toBeGreaterThan(0);
       expect(bottomCount).toBeGreaterThan(0);
-    });
-
-    it("raises error when deck length is invalid", () => {
-      deck.deal();
-
-      expect(() => deck.riffleShuffle()).toThrow(TypeError);
     });
   });
 
@@ -392,12 +381,6 @@ describe("StandardDeck class", () => {
         expect(cut).toBeGreaterThanOrEqual(4);
         expect(cut).toBeLessThanOrEqual(8);
       }
-    });
-
-    it("should throw an error if the deck is missing cards", () => {
-      deck.deal();
-
-      expect(() => deck.runningCutsShuffle()).toThrow(TypeError);
     });
 
     it("should run running cuts 1000 times without failing", () => {
