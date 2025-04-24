@@ -138,7 +138,7 @@ export abstract class DeckOfCards {
   }
 
   randomShuffle(): void {
-    if (this._counter > 0) this.reset();
+    this.resetCounter();
     for (let i = 0; i < this.numberOfCards(); i++) {
       const swapIndex = this.getRandomIndex(0, this.numberOfCards() - 1);
       const temp = this.cardAt(i);
@@ -148,7 +148,7 @@ export abstract class DeckOfCards {
   }
 
   riffleShuffle(): void {
-    if (this._counter > 0) this.reset();
+    this.resetCounter();
     const [top, bottom] = this.splitDeck();
     const shuffled: Card[] = [];
 
@@ -190,7 +190,7 @@ export abstract class DeckOfCards {
   }
 
   faroShuffle(): void {
-    if (this._counter > 0) this.reset();
+    this.resetCounter();
     const [top, bottom] = this.splitDeck();
 
     const cards = [];
@@ -203,7 +203,7 @@ export abstract class DeckOfCards {
   }
 
   runningCutsShuffle(): void {
-    if (this._counter > 0) this.reset();
+    this.resetCounter();
 
     const newDeck: Card[] = [];
     const deckCopy = [...this.cards];
@@ -218,7 +218,7 @@ export abstract class DeckOfCards {
   }
 
   fullShuffle(): void {
-    if (this._counter > 0) this.reset();
+    this.resetCounter();
     this.randomShuffle(); // Still start with a Fisher-Yates-style shuffle
 
     const totalShuffles = 10;
@@ -245,8 +245,10 @@ export abstract class DeckOfCards {
     return Math.floor(Math.random() * 100) % 2;
   }
 
-  protected reset: VoidFunction = () => {
-    this._counter = 0;
+  protected resetCounter(): void {
+    if (this._counter > 0) { 
+      this._counter = 0;
+    }
   }
 
   private splitDeck(): Array<Array<Card>> {
