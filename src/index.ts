@@ -110,10 +110,14 @@ export class Card {
 
 export abstract class DeckOfCards {
   private _cards: Array<Card>;
-  protected _counter: number;
+  private _dealIndex: number;
 
   get cards(): Array<Card> {
     return this._cards;
+  }
+
+  protected get dealIndex(): number {
+    return this._dealIndex;
   }
 
   protected set cards(value: Array<Card>) {
@@ -122,7 +126,7 @@ export abstract class DeckOfCards {
 
   constructor() {
     this._cards = new Array<Card>();
-    this._counter = 0;
+    this._dealIndex = 0;
   }
 
   toString(): string {
@@ -138,7 +142,7 @@ export abstract class DeckOfCards {
   }
 
   randomShuffle(): void {
-    this.resetCounter();
+    this.resetDealIndex();
     for (let i = 0; i < this.numberOfCards(); i++) {
       const swapIndex = this.getRandomIndex(0, this.numberOfCards() - 1);
       const temp = this.cardAt(i);
@@ -148,7 +152,7 @@ export abstract class DeckOfCards {
   }
 
   riffleShuffle(): void {
-    this.resetCounter();
+    this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
     const shuffled: Card[] = [];
 
@@ -190,7 +194,7 @@ export abstract class DeckOfCards {
   }
 
   faroShuffle(): void {
-    this.resetCounter();
+    this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
 
     const cards = [];
@@ -203,7 +207,7 @@ export abstract class DeckOfCards {
   }
 
   runningCutsShuffle(): void {
-    this.resetCounter();
+    this.resetDealIndex();
 
     const newDeck: Card[] = [];
     const deckCopy = [...this.cards];
@@ -218,7 +222,7 @@ export abstract class DeckOfCards {
   }
 
   fullShuffle(): void {
-    this.resetCounter();
+    this.resetDealIndex();
     this.randomShuffle(); // Still start with a Fisher-Yates-style shuffle
 
     const totalShuffles = 10;
@@ -233,10 +237,6 @@ export abstract class DeckOfCards {
     }
   }
 
-  protected isEmpty(): boolean {
-    return this.cards.length <= 0;
-  }
-
   protected getRandomIndex(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -245,10 +245,12 @@ export abstract class DeckOfCards {
     return Math.floor(Math.random() * 100) % 2;
   }
 
-  protected resetCounter(): void {
-    if (this._counter > 0) { 
-      this._counter = 0;
-    }
+  protected resetDealIndex(): void {
+    this._dealIndex = 0;
+  }
+
+  protected advanceDealIndex(): void {
+    this._dealIndex++;
   }
 
   private splitDeck(): Array<Array<Card>> {
@@ -263,20 +265,20 @@ export abstract class DeckOfCards {
 export class StandardDeck extends DeckOfCards {
   constructor() {
     super();
-    this._counter = 0;
+    let index = 0;
     for (const suitKey of suits) {
       for (const faceKey of faces) {
-        this.cards.push(new Card(suitKey, faceKey, this._counter++));
+        this.cards.push(new Card(suitKey, faceKey, index++));
       }
     }
-    //reset counter because it's later used for dealing
-    this._counter = 0;
   }
 
   deal(): Card {
-    if (this._counter >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
-
-    return this.cards[this._counter++];
+    if (this.dealIndex >= this.cards.length)
+      throw new TypeError("Cannot deal card, deck is empty");
+    const cardToDeal = this.cardAt(this.dealIndex);
+    this.advanceDealIndex();
+    return cardToDeal;
   }
 }
 
