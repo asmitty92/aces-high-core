@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "ES5",
-    "module": "CommonJS",
+    "target": "ES2017",
+    "module": "ESNext",
     "declaration": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "downlevelIteration": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "noUnusedLocals": true,
@@ -13,6 +14,6 @@
     "outDir": "lib/",
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/node_modules/*", "**/__tests__/*", "**/lib/*"]
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "**/__tests__/*", "lib", "example.ts"]
 }
