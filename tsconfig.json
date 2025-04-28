@@ -3,6 +3,7 @@
     "baseUrl": "./",
     "target": "ES2017",
     "module": "ESNext",
+    "moduleResolution": "node",
     "declaration": true,
     "noImplicitAny": true,
     "downlevelIteration": true,
