@@ -28,7 +28,7 @@ yarn add aces-high-core
 Here’s a quick example of how to use Aces High Core to work with cards and decks:
 
 ```typescript
-import { Card, Deck, Suits, Faces } from 'aces-high-core';
+import { Card, Deck, Suits, Faces } from "aces-high-core";
 
 // Create a new deck of cards
 const deck = new Deck();
@@ -36,7 +36,7 @@ deck.fullShuffle();
 
 // Draw five cards
 const hand = deck.draw(5);
-console.log('Your hand:', hand);
+console.log("Your hand:", hand);
 ```
 
 ### Key Classes and Modules

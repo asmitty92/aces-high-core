@@ -262,7 +262,6 @@ export abstract class DeckOfCards {
 
     return [top, bottom];
   }
-
 }
 
 export class StandardDeck extends DeckOfCards {
