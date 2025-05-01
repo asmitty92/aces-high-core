@@ -245,10 +245,12 @@ export abstract class DeckOfCards {
     return Math.floor(Math.random() * 100) % 2;
   }
 
+  // I don't want subclasses modifying deal index directly
   protected resetDealIndex(): void {
     this._dealIndex = 0;
   }
 
+  // I don't want subclasses modifying deal index directly
   protected advanceDealIndex(): void {
     this._dealIndex++;
   }
@@ -260,6 +262,7 @@ export abstract class DeckOfCards {
 
     return [top, bottom];
   }
+
 }
 
 export class StandardDeck extends DeckOfCards {
