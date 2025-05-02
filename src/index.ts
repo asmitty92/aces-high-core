@@ -76,7 +76,7 @@ const FaceValues: Map<Face, number> = new Map([
   [Faces.KING, 13],
 ]);
 
-export class Card {
+export class Card<FaceType extends Face> {
   public get index(): number {
     return this._index;
   }
@@ -86,8 +86,8 @@ export class Card {
   }
 
   constructor(
-    public suit: Suit,
-    public face: Face,
+    protected suit: Suit,
+    protected face: FaceType,
     private _index: number = -1,
   ) {}
 
@@ -108,11 +108,11 @@ export class Card {
   }
 }
 
-export abstract class DeckOfCards {
-  private _cards: Array<Card>;
+export abstract class DeckOfCards<FaceType extends Face> {
+  private _cards: Card<FaceType>[];
   private _dealIndex: number;
 
-  get cards(): Array<Card> {
+  get cards(): Card<FaceType>[] {
     return this._cards;
   }
 
@@ -120,12 +120,12 @@ export abstract class DeckOfCards {
     return this._dealIndex;
   }
 
-  protected set cards(value: Array<Card>) {
+  protected set cards(value: Card<FaceType>[]) {
     this._cards = value;
   }
 
   constructor() {
-    this._cards = new Array<Card>();
+    this._cards = [];
     this._dealIndex = 0;
   }
 
@@ -137,7 +137,7 @@ export abstract class DeckOfCards {
     return this.cards.length;
   }
 
-  cardAt(index: number): Card {
+  cardAt(index: number): Card<FaceType> {
     return this.cards[index];
   }
 
@@ -154,7 +154,7 @@ export abstract class DeckOfCards {
   riffleShuffle(): void {
     this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
-    const shuffled: Card[] = [];
+    const shuffled: Card<FaceType>[] = [];
 
     let topIndex = 0;
     let bottomIndex = 0;
@@ -209,7 +209,7 @@ export abstract class DeckOfCards {
   runningCutsShuffle(): void {
     this.resetDealIndex();
 
-    const newDeck: Card[] = [];
+    const newDeck: Card<FaceType>[] = [];
     const deckCopy = [...this.cards];
 
     while (deckCopy.length > 0) {
@@ -255,7 +255,7 @@ export abstract class DeckOfCards {
     this._dealIndex++;
   }
 
-  private splitDeck(): Array<Array<Card>> {
+  private splitDeck(): Card<FaceType>[][] {
     const midpoint = this.cards.length / 2;
     const top = [...this.cards.slice(0, midpoint)];
     const bottom = [...this.cards.slice(midpoint)];
@@ -264,7 +264,7 @@ export abstract class DeckOfCards {
   }
 }
 
-export class StandardDeck extends DeckOfCards {
+export class StandardDeck extends DeckOfCards<Face> {
   constructor() {
     super();
     let index = 0;
@@ -275,7 +275,7 @@ export class StandardDeck extends DeckOfCards {
     }
   }
 
-  deal(): Card {
+  deal(): Card<Face> {
     if (this.dealIndex >= this.cards.length)
       throw new TypeError("Cannot deal card, deck is empty");
     const cardToDeal = this.cardAt(this.dealIndex);
@@ -284,21 +284,21 @@ export class StandardDeck extends DeckOfCards {
   }
 }
 
-export abstract class CardHand {
-  protected constructor(private _cards: Array<Card>) {}
+export abstract class CardHand<FaceType extends Face> {
+  protected constructor(private _cards: Card<FaceType>[]) {}
 
-  get cards(): Array<Card> {
+  get cards(): Card<FaceType>[] {
     return this._cards;
   }
 
   abstract calculateScore(): number;
 
-  addCards(cards: Array<Card>) {
+  addCards(cards: Card<FaceType>[]) {
     this.cards.push(...cards);
   }
 }
 
-export abstract class CardPlayer {
+export abstract class CardPlayer<FaceType extends Face> {
   protected myScore: number;
 
   get score(): number {
@@ -311,5 +311,5 @@ export abstract class CardPlayer {
 
   abstract scoreHand(): void;
 
-  abstract takeCards(cards: Array<Card>): void;
+  abstract takeCards(cards: Card<FaceType>[]): void;
 }
