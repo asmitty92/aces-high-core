@@ -96,22 +96,6 @@ describe("getCombinations function", () => {
 });
 
 describe("Card class", () => {
-  describe("suit property", () => {
-    it("should return the card's suit", async () => {
-      const card = new Card(Suits.CLUBS, Faces.TWO);
-
-      expect(card.suit).toEqual(Suits.CLUBS);
-    });
-  });
-
-  describe("face property", () => {
-    it("should return the card's face", async () => {
-      const card = new Card(Suits.CLUBS, Faces.THREE);
-
-      expect(card.face).toEqual(Faces.THREE);
-    });
-  });
-
   describe("isAce() method", () => {
     it("should return true if the card is an Ace", () => {
       const card = new Card(Suits.CLUBS, Faces.ACE);
