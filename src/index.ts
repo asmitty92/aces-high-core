@@ -38,11 +38,11 @@ export function getCombinations<T>(items: T[], itemCount: number): T[][] {
 }
 
 export const Suits = Object.fromEntries(
-  suits.map((suit) => [suit.toUpperCase(), suit])
+  suits.map((suit) => [suit.toUpperCase(), suit]),
 ) as { [K in Uppercase<Suit>]: Suit };
 
 export const Faces = Object.fromEntries(
-  faces.map((face) => [face.toUpperCase(), face])
+  faces.map((face) => [face.toUpperCase(), face]),
 ) as { [K in Uppercase<Face>]: Face };
 
 const FaceValues: Map<Face, number> = new Map([

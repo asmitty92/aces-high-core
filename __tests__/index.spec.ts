@@ -97,7 +97,7 @@ describe("getCombinations function", () => {
 
 describe("Card class", () => {
   describe("suit property", () => {
-    it("should return the card's suit", async() => {
+    it("should return the card's suit", async () => {
       const card = new Card(Suits.CLUBS, Faces.TWO);
 
       expect(card.suit).toEqual(Suits.CLUBS);
@@ -105,7 +105,7 @@ describe("Card class", () => {
   });
 
   describe("face property", () => {
-    it("should return the card's face", async() => {
+    it("should return the card's face", async () => {
       const card = new Card(Suits.CLUBS, Faces.THREE);
 
       expect(card.face).toEqual(Faces.THREE);
