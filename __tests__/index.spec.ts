@@ -31,8 +31,8 @@ function nChooseK(n: number, k: number): number {
   return nChooseK(n - 1, k - 1) + nChooseK(n - 1, k);
 }
 
-class TestHand extends CardHand {
-  constructor(cards: Array<Card>) {
+class TestHand extends CardHand<Faces> {
+  constructor(cards: Card<Faces>[]) {
     super(cards);
   }
 
@@ -41,14 +41,14 @@ class TestHand extends CardHand {
   }
 }
 
-class TestPlayer extends CardPlayer {
+class TestPlayer extends CardPlayer<Faces> {
   constructor() {
     super();
   }
 
   scoreHand() {}
 
-  takeCards(cards: Array<Card>): void {}
+  takeCards(cards: Card<Faces>[]): void {}
 }
 
 describe("getCombinations function", () => {
@@ -421,8 +421,7 @@ describe("StandardDeck class", () => {
     it("should raise error if deck is dealt when it is empty", () => {
       const numberOfCards = deck.numberOfCards();
       for (let i = 0; i < numberOfCards; i++) {
-        const card = deck.deal();
-        console.log(i, card);
+        deck.deal();
       }
 
       expect(() => deck.deal()).toThrow(TypeError);
