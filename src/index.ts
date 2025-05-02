@@ -1,5 +1,5 @@
-const suits = ["Clubs", "Hearts", "Spades", "Diamonds"] as const;
-type Suit = (typeof suits)[number];
+export const suits = ["Clubs", "Hearts", "Spades", "Diamonds"] as const;
+export type Suit = (typeof suits)[number];
 const faces = [
   "Ace",
   "Two",
