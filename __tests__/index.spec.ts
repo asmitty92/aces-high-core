@@ -6,6 +6,7 @@ import {
   Suits,
   CardPlayer,
   getCombinations,
+  Face,
 } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
@@ -31,8 +32,8 @@ function nChooseK(n: number, k: number): number {
   return nChooseK(n - 1, k - 1) + nChooseK(n - 1, k);
 }
 
-class TestHand extends CardHand<Faces> {
-  constructor(cards: Card<Faces>[]) {
+class TestHand extends CardHand<Face> {
+  constructor(cards: Card<Face>[]) {
     super(cards);
   }
 
@@ -41,14 +42,14 @@ class TestHand extends CardHand<Faces> {
   }
 }
 
-class TestPlayer extends CardPlayer<Faces> {
+class TestPlayer extends CardPlayer<Face> {
   constructor() {
     super();
   }
 
   scoreHand() {}
 
-  takeCards(cards: Card<Faces>[]): void {}
+  takeCards(cards: Card<Face>[]): void {}
 }
 
 describe("getCombinations function", () => {
@@ -95,6 +96,22 @@ describe("getCombinations function", () => {
 });
 
 describe("Card class", () => {
+  describe("suit property", () => {
+    it("should return the card's suit", async() => {
+      const card = new Card(Suits.CLUBS, Faces.TWO);
+
+      expect(card.suit).toEqual(Suits.CLUBS);
+    });
+  });
+
+  describe("face property", () => {
+    it("should return the card's face", async() => {
+      const card = new Card(Suits.CLUBS, Faces.THREE);
+
+      expect(card.face).toEqual(Faces.THREE);
+    });
+  });
+
   describe("isAce() method", () => {
     it("should return true if the card is an Ace", () => {
       const card = new Card(Suits.CLUBS, Faces.ACE);
