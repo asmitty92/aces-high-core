@@ -6,6 +6,7 @@ import {
   Suits,
   CardPlayer,
   getCombinations,
+  Face,
 } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
@@ -31,8 +32,8 @@ function nChooseK(n: number, k: number): number {
   return nChooseK(n - 1, k - 1) + nChooseK(n - 1, k);
 }
 
-class TestHand extends CardHand<Faces> {
-  constructor(cards: Card<Faces>[]) {
+class TestHand extends CardHand<Face> {
+  constructor(cards: Card<Face>[]) {
     super(cards);
   }
 
@@ -41,14 +42,14 @@ class TestHand extends CardHand<Faces> {
   }
 }
 
-class TestPlayer extends CardPlayer<Faces> {
+class TestPlayer extends CardPlayer<Face> {
   constructor() {
     super();
   }
 
   scoreHand() {}
 
-  takeCards(cards: Card<Faces>[]): void {}
+  takeCards(cards: Card<Face>[]): void {}
 }
 
 describe("getCombinations function", () => {

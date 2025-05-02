@@ -15,7 +15,7 @@ const faces = [
   "Queen",
   "King",
 ] as const;
-type Face = (typeof faces)[number];
+export type Face = (typeof faces)[number];
 
 export function getCombinations<T>(items: T[], itemCount: number): T[][] {
   const combinations: T[][] = [];
@@ -37,28 +37,13 @@ export function getCombinations<T>(items: T[], itemCount: number): T[][] {
   return combinations;
 }
 
-export enum Suits {
-  CLUBS = "Clubs",
-  HEARTS = "Hearts",
-  SPADES = "Spades",
-  DIAMONDS = "Diamonds",
-}
+export const Suits = Object.fromEntries(
+  suits.map((suit) => [suit.toUpperCase(), suit]),
+) as { [K in Uppercase<Suit>]: Suit };
 
-export enum Faces {
-  ACE = "Ace",
-  TWO = "Two",
-  THREE = "Three",
-  FOUR = "Four",
-  FIVE = "Five",
-  SIX = "Six",
-  SEVEN = "Seven",
-  EIGHT = "Eight",
-  NINE = "Nine",
-  TEN = "Ten",
-  JACK = "Jack",
-  QUEEN = "Queen",
-  KING = "King",
-}
+export const Faces = Object.fromEntries(
+  faces.map((face) => [face.toUpperCase(), face]),
+) as { [K in Uppercase<Face>]: Face };
 
 const FaceValues: Map<Face, number> = new Map([
   [Faces.ACE, 1],
@@ -86,8 +71,8 @@ export class Card<FaceType extends Face> {
   }
 
   constructor(
-    protected suit: Suit,
-    protected face: FaceType,
+    public readonly suit: Suit,
+    public readonly face: FaceType,
     private _index: number = -1,
   ) {}
 
