@@ -12,7 +12,7 @@ import {
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
   let cuts = new Array<number>();
-  for (let i = 1; i < deck.numberOfCards(); i++) {
+  for (let i = 1; i < deck.size; i++) {
     const currentCard = deck.cardAt(i);
     const previousCard = deck.cardAt(i - 1);
     if (currentCard.index - previousCard.index == 1) {
@@ -166,7 +166,7 @@ describe("StandardDeck class", () => {
 
   describe("constructor", () => {
     it("should create a deck with 52 cards", () => {
-      expect(deck.numberOfCards()).toEqual(52);
+      expect(deck.size).toEqual(52);
     });
 
     it("should contain all Clubs", () => {
@@ -276,7 +276,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should give all cards an index", () => {
-      for (let i = 0; i < deck.numberOfCards(); i++) {
+      for (let i = 0; i < deck.size; i++) {
         expect(deck.cardAt(i).index).toEqual(i);
       }
     });
@@ -294,7 +294,7 @@ describe("StandardDeck class", () => {
       deck.randomShuffle();
 
       let areCardsShuffled = false;
-      for (let i = 0; i < deck.numberOfCards(); i++) {
+      for (let i = 0; i < deck.size; i++) {
         if (deck.cardAt(i).index != i) {
           areCardsShuffled = true;
           break;
@@ -317,7 +317,7 @@ describe("StandardDeck class", () => {
 
       //check rest of deck just by index
       let expectedIndex = 0;
-      for (let i = 0; i < deck.numberOfCards() / 2; i += 2) {
+      for (let i = 0; i < deck.size / 2; i += 2) {
         expect(deck.cardAt(i).index).toEqual(expectedIndex);
         expect(deck.cardAt(i + 1).index).toEqual(expectedIndex + 26);
         expectedIndex += 1;
@@ -420,8 +420,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should raise error if deck is dealt when it is empty", () => {
-      const numberOfCards = deck.numberOfCards();
-      for (let i = 0; i < numberOfCards; i++) {
+      for (let i = 0; i < deck.size; i++) {
         deck.deal();
       }
 

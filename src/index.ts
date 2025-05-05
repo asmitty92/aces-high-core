@@ -101,7 +101,11 @@ export abstract class DeckOfCards<FaceType extends Face> {
     return this._cards;
   }
 
-  protected get dealIndex(): number {
+  get size(): number {
+    return this.cards.length;
+  }
+
+  private get dealIndex(): number {
     return this._dealIndex;
   }
 
@@ -118,8 +122,12 @@ export abstract class DeckOfCards<FaceType extends Face> {
     return this.cards.join("\n");
   }
 
-  numberOfCards(): number {
-    return this.cards.length;
+  deal(): Card<Face> {
+    if (this.dealIndex >= this.cards.length)
+      throw new TypeError("Cannot deal card, deck is empty");
+    const cardToDeal = this.cardAt(this.dealIndex);
+    this.advanceDealIndex();
+    return cardToDeal;
   }
 
   cardAt(index: number): Card<FaceType> {
@@ -128,8 +136,8 @@ export abstract class DeckOfCards<FaceType extends Face> {
 
   randomShuffle(): void {
     this.resetDealIndex();
-    for (let i = 0; i < this.numberOfCards(); i++) {
-      const swapIndex = this.getRandomIndex(0, this.numberOfCards() - 1);
+    for (let i = 0; i < this.size; i++) {
+      const swapIndex = this.getRandomIndex(0, this.size - 1);
       const temp = this.cardAt(i);
       this.cards[i] = this.cardAt(swapIndex);
       this.cards[swapIndex] = temp;
@@ -222,21 +230,21 @@ export abstract class DeckOfCards<FaceType extends Face> {
     }
   }
 
-  protected getRandomIndex(min: number, max: number): number {
+  private getRandomIndex(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  protected coinFlip(): number {
+  private coinFlip(): number {
     return Math.floor(Math.random() * 100) % 2;
   }
 
   // I don't want subclasses modifying deal index directly
-  protected resetDealIndex(): void {
+  private resetDealIndex(): void {
     this._dealIndex = 0;
   }
 
   // I don't want subclasses modifying deal index directly
-  protected advanceDealIndex(): void {
+  private advanceDealIndex(): void {
     this._dealIndex++;
   }
 
@@ -258,14 +266,6 @@ export class StandardDeck extends DeckOfCards<Face> {
         this.cards.push(new Card(suitKey, faceKey, index++));
       }
     }
-  }
-
-  deal(): Card<Face> {
-    if (this.dealIndex >= this.cards.length)
-      throw new TypeError("Cannot deal card, deck is empty");
-    const cardToDeal = this.cardAt(this.dealIndex);
-    this.advanceDealIndex();
-    return cardToDeal;
   }
 }
 
