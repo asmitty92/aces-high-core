@@ -1,18 +1,9 @@
-import {
-  Card,
-  CardHand,
-  Faces,
-  StandardDeck,
-  Suits,
-  CardPlayer,
-  getCombinations,
-  Face,
-} from "../src";
+import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer, getCombinations, Face } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
   let cuts = new Array<number>();
-  for (let i = 1; i < deck.numberOfCards(); i++) {
+  for (let i = 1; i < deck.size; i++) {
     const currentCard = deck.cardAt(i);
     const previousCard = deck.cardAt(i - 1);
     if (currentCard.index - previousCard.index == 1) {
@@ -166,7 +157,7 @@ describe("StandardDeck class", () => {
 
   describe("constructor", () => {
     it("should create a deck with 52 cards", () => {
-      expect(deck.numberOfCards()).toEqual(52);
+      expect(deck.size).toEqual(52);
     });
 
     it("should contain all Clubs", () => {
@@ -188,95 +179,53 @@ describe("StandardDeck class", () => {
     it("should contain all Hearts", () => {
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.ACE, 13));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.TWO, 14));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.HEARTS, Faces.THREE, 15),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.THREE, 15));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.FOUR, 16));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.FIVE, 17));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.SIX, 18));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.HEARTS, Faces.SEVEN, 19),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.HEARTS, Faces.EIGHT, 20),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.SEVEN, 19));
+      expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.EIGHT, 20));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.NINE, 21));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.TEN, 22));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.JACK, 23));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.HEARTS, Faces.QUEEN, 24),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.QUEEN, 24));
       expect(deck.cards).toContainEqual(new Card(Suits.HEARTS, Faces.KING, 25));
     });
 
     it("should contain all Spades", () => {
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.ACE, 26));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.TWO, 27));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.SPADES, Faces.THREE, 28),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.THREE, 28));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.FOUR, 29));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.FIVE, 30));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.SIX, 31));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.SPADES, Faces.SEVEN, 32),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.SPADES, Faces.EIGHT, 33),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.SEVEN, 32));
+      expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.EIGHT, 33));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.NINE, 34));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.TEN, 35));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.JACK, 36));
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.SPADES, Faces.QUEEN, 37),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.QUEEN, 37));
       expect(deck.cards).toContainEqual(new Card(Suits.SPADES, Faces.KING, 38));
     });
 
     it("should contain all Diamonds", () => {
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.ACE, 39),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.TWO, 40),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.THREE, 41),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.FOUR, 42),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.FIVE, 43),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.SIX, 44),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.SEVEN, 45),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.EIGHT, 46),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.NINE, 47),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.TEN, 48),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.JACK, 49),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.QUEEN, 50),
-      );
-      expect(deck.cards).toContainEqual(
-        new Card(Suits.DIAMONDS, Faces.KING, 51),
-      );
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.ACE, 39));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TWO, 40));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.THREE, 41));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FOUR, 42));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.FIVE, 43));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SIX, 44));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.SEVEN, 45));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.EIGHT, 46));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.NINE, 47));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.TEN, 48));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.JACK, 49));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.QUEEN, 50));
+      expect(deck.cards).toContainEqual(new Card(Suits.DIAMONDS, Faces.KING, 51));
     });
 
     it("should give all cards an index", () => {
-      for (let i = 0; i < deck.numberOfCards(); i++) {
+      for (let i = 0; i < deck.size; i++) {
         expect(deck.cardAt(i).index).toEqual(i);
       }
     });
@@ -294,7 +243,7 @@ describe("StandardDeck class", () => {
       deck.randomShuffle();
 
       let areCardsShuffled = false;
-      for (let i = 0; i < deck.numberOfCards(); i++) {
+      for (let i = 0; i < deck.size; i++) {
         if (deck.cardAt(i).index != i) {
           areCardsShuffled = true;
           break;
@@ -317,7 +266,7 @@ describe("StandardDeck class", () => {
 
       //check rest of deck just by index
       let expectedIndex = 0;
-      for (let i = 0; i < deck.numberOfCards() / 2; i += 2) {
+      for (let i = 0; i < deck.size / 2; i += 2) {
         expect(deck.cardAt(i).index).toEqual(expectedIndex);
         expect(deck.cardAt(i + 1).index).toEqual(expectedIndex + 26);
         expectedIndex += 1;
@@ -347,9 +296,7 @@ describe("StandardDeck class", () => {
       deck.riffleShuffle();
 
       // Check that chunk sizes are within expected range
-      const allInRange = spy.mock.calls.every(
-        ([min, max]) => min === 1 && max === 3,
-      );
+      const allInRange = spy.mock.calls.every(([min, max]) => min === 1 && max === 3);
       expect(allInRange).toBe(true);
     });
 
@@ -359,9 +306,7 @@ describe("StandardDeck class", () => {
       const top = [...deck.cards.slice(0, midpoint)];
       deck.riffleShuffle();
 
-      const topCount = deck.cards.filter((c) =>
-        top.some((t) => t.toString() === c.toString()),
-      ).length;
+      const topCount = deck.cards.filter((c) => top.some((t) => t.toString() === c.toString())).length;
 
       const bottomCount = deck.cards.length - topCount;
 
@@ -420,8 +365,7 @@ describe("StandardDeck class", () => {
     });
 
     it("should raise error if deck is dealt when it is empty", () => {
-      const numberOfCards = deck.numberOfCards();
-      for (let i = 0; i < numberOfCards; i++) {
+      for (let i = 0; i < deck.size; i++) {
         deck.deal();
       }
 
