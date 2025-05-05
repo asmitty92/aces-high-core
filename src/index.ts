@@ -37,13 +37,13 @@ export function getCombinations<T>(items: T[], itemCount: number): T[][] {
   return combinations;
 }
 
-export const Suits = Object.fromEntries(
-  suits.map((suit) => [suit.toUpperCase(), suit]),
-) as { [K in Uppercase<Suit>]: Suit };
+export const Suits = Object.fromEntries(suits.map((suit) => [suit.toUpperCase(), suit])) as {
+  [K in Uppercase<Suit>]: Suit;
+};
 
-export const Faces = Object.fromEntries(
-  faces.map((face) => [face.toUpperCase(), face]),
-) as { [K in Uppercase<Face>]: Face };
+export const Faces = Object.fromEntries(faces.map((face) => [face.toUpperCase(), face])) as {
+  [K in Uppercase<Face>]: Face;
+};
 
 const FaceValues: Map<Face, number> = new Map([
   [Faces.ACE, 1],
@@ -123,8 +123,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
   }
 
   deal(): Card<Face> {
-    if (this.dealIndex >= this.cards.length)
-      throw new TypeError("Cannot deal card, deck is empty");
+    if (this.dealIndex >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
     const cardToDeal = this.cardAt(this.dealIndex);
     this.advanceDealIndex();
     return cardToDeal;
@@ -163,11 +162,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
         }
 
         const otherChunkSize = this.getRandomIndex(1, 3); // drop 1–3 cards from bottom
-        for (
-          let i = 0;
-          i < otherChunkSize && bottomIndex < bottom.length;
-          i++
-        ) {
+        for (let i = 0; i < otherChunkSize && bottomIndex < bottom.length; i++) {
           shuffled.push(bottom[bottomIndex++]);
         }
       } else {
