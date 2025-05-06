@@ -1,6 +1,6 @@
 {
   "name": "aces-high-core",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Base framework for card and deck functionality",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -8,8 +8,7 @@
   "files": [
     "package.json",
     "README.md",
-    "lib/**/*",
-    ".jsii"
+    "lib/**/*"
   ],
   "scripts": {
     "build": "tsc",

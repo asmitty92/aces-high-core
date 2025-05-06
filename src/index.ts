@@ -271,7 +271,7 @@ export abstract class CardHand<FaceType extends Face> {
     return this._cards;
   }
 
-  abstract calculateScore(): number;
+  abstract calculateScore(context?: unknown): number;
 
   addCards(cards: Card<FaceType>[]) {
     this.cards.push(...cards);
