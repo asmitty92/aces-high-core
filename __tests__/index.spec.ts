@@ -40,7 +40,7 @@ class TestPlayer extends CardPlayer<Face> {
 
   scoreHand() {}
 
-  takeCards(cards: Card<Face>[]): void {}
+  acceptCards(cards: Card<Face>[]): void {}
 }
 
 describe("getCombinations function", () => {
@@ -403,17 +403,6 @@ describe("CardHand abstract class", () => {
       const hand = new TestHand(cards);
 
       expect(hand.cards).toEqual(cards);
-    });
-  });
-
-  describe("addCards method", () => {
-    it("should add cards to inner list", () => {
-      const card = new Card(Suits.SPADES, Faces.ACE);
-      const hand = new TestHand([]);
-
-      hand.addCards([card]);
-
-      expect(hand.cards).toContain(card);
     });
   });
 });
