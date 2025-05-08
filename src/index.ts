@@ -76,19 +76,19 @@ export class Card<FaceType extends Face> {
     private _index: number = -1,
   ) {}
 
-  isAce(): boolean {
+  isAce = () => {
     return this.face == Faces.ACE;
   }
 
-  isKing(): boolean {
+  isKing = () => {
     return this.face == Faces.KING;
   }
 
-  isInDeck(): boolean {
+  isInDeck = () => {
     return this.index >= 0;
   }
 
-  toString(): string {
+  toString = () => {
     return `The ${this.face} of ${this.suit}`;
   }
 }
@@ -118,22 +118,22 @@ export abstract class DeckOfCards<FaceType extends Face> {
     this._dealIndex = 0;
   }
 
-  toString(): string {
+  toString = () => {
     return this.cards.join("\n");
   }
 
-  deal(): Card<Face> {
+  deal = () => {
     if (this.dealIndex >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
     const cardToDeal = this.cardAt(this.dealIndex);
     this.advanceDealIndex();
     return cardToDeal;
   }
 
-  cardAt(index: number): Card<FaceType> {
+  cardAt = (index: number) => {
     return this.cards[index];
   }
 
-  randomShuffle(): void {
+  randomShuffle = () => {
     this.resetDealIndex();
     for (let i = 0; i < this.size; i++) {
       const swapIndex = this.getRandomIndex(0, this.size - 1);
@@ -143,7 +143,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     }
   }
 
-  riffleShuffle(): void {
+  riffleShuffle = () => {
     this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
     const shuffled: Card<FaceType>[] = [];
@@ -181,7 +181,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     this.cards = shuffled;
   }
 
-  faroShuffle(): void {
+  faroShuffle = () => {
     this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
 
@@ -194,7 +194,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     this.cards = cards;
   }
 
-  runningCutsShuffle(): void {
+  runningCutsShuffle = () => {
     this.resetDealIndex();
 
     const newDeck: Card<FaceType>[] = [];
@@ -209,7 +209,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     this.cards = newDeck;
   }
 
-  fullShuffle(): void {
+  fullShuffle = () => {
     this.resetDealIndex();
     this.randomShuffle(); // Still start with a Fisher-Yates-style shuffle
 
@@ -225,25 +225,25 @@ export abstract class DeckOfCards<FaceType extends Face> {
     }
   }
 
-  private getRandomIndex(min: number, max: number): number {
+  private getRandomIndex = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  private coinFlip(): number {
+  private coinFlip = () => {
     return Math.floor(Math.random() * 100) % 2;
   }
 
   // I don't want subclasses modifying deal index directly
-  private resetDealIndex(): void {
+  private resetDealIndex = () => {
     this._dealIndex = 0;
   }
 
   // I don't want subclasses modifying deal index directly
-  private advanceDealIndex(): void {
+  private advanceDealIndex = () => {
     this._dealIndex++;
   }
 
-  private splitDeck(): Card<FaceType>[][] {
+  private splitDeck = () => {
     const midpoint = this.cards.length / 2;
     const top = [...this.cards.slice(0, midpoint)];
     const bottom = [...this.cards.slice(midpoint)];
@@ -265,9 +265,12 @@ export class StandardDeck extends DeckOfCards<Face> {
 }
 
 export abstract class CardHand<FaceType extends Face> {
-  protected constructor(private readonly _cards: Card<FaceType>[]) {}
+  protected constructor(private readonly _cards: Card<FaceType>[], private readonly accessKey: Symbol) {}
 
-  get cards(): Card<FaceType>[] {
+  cards = (key: Symbol) => {
+    if (key !== this.accessKey) {
+      throw new Error("Invalid attempt access to access cards");
+    }
     return this._cards;
   }
 
