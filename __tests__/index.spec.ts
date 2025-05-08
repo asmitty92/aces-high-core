@@ -24,7 +24,7 @@ function nChooseK(n: number, k: number): number {
 }
 
 class TestHand extends CardHand<Face> {
-  constructor(cards: Card<Face>[], accessKey: Symbol) {
+  constructor(cards: Card<Face>[], accessKey: symbol) {
     super(cards, accessKey);
   }
 

@@ -265,9 +265,9 @@ export class StandardDeck extends DeckOfCards<Face> {
 }
 
 export abstract class CardHand<FaceType extends Face> {
-  protected constructor(private readonly _cards: Card<FaceType>[], private readonly accessKey: Symbol) {}
+  protected constructor(private readonly _cards: Card<FaceType>[], private readonly accessKey: symbol) {}
 
-  cards = (key: Symbol) => {
+  cards = (key: symbol) => {
     if (key !== this.accessKey) {
       throw new Error("Invalid attempt access to access cards");
     }
