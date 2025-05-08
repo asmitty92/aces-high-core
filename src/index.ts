@@ -266,7 +266,7 @@ export class StandardDeck extends DeckOfCards<Face> {
 
 export abstract class CardHand<FaceType extends Face> {
   protected constructor(
-    private readonly _cards: Card<FaceType>[],
+    protected readonly _cards: Card<FaceType>[],
     private readonly accessKey: symbol,
   ) {}
 
