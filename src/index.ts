@@ -270,6 +270,10 @@ export abstract class CardHand<FaceType extends Face> {
     private readonly accessKey: symbol,
   ) {}
 
+  get size(): number {
+    return this._cards.length;
+  }
+
   cards = (key: symbol) => {
     if (key !== this.accessKey) {
       throw new Error("Invalid attempt access to access cards");

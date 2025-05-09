@@ -24,7 +24,8 @@ function nChooseK(n: number, k: number): number {
 }
 
 class TestHand extends CardHand<Face> {
-  constructor(cards: Card<Face>[], accessKey: symbol) {
+  constructor(cards: Card<Face>[], accessKey?: symbol) {
+    accessKey = accessKey ?? Symbol("testAccessKey");
     super(cards, accessKey);
   }
 
@@ -415,6 +416,14 @@ describe("CardHand abstract class", () => {
       expect(() => hand.cards(Symbol(keyString))).toThrow("Invalid attempt access to access cards");
     });
   });
+
+  describe("size getter", () => {
+    it("returns the number of cards in the hand", () => {
+      const hand = new TestHand([new Card(Suits.CLUBS, Faces.ACE), new Card(Suits.DIAMONDS, Faces.TWO)]);
+
+      expect(hand.size).toEqual(2);
+  });
+});
 });
 
 describe("CardPlayer abstract class", () => {
