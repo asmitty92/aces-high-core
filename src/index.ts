@@ -127,7 +127,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     const cardToDeal = this.cardAt(this.dealIndex);
     this.advanceDealIndex();
     return cardToDeal;
-  };
+  }
 
   cardAt = (index: number) => {
     return this.cards[index];
