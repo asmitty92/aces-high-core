@@ -122,12 +122,12 @@ export abstract class DeckOfCards<FaceType extends Face> {
     return this.cards.join("\n");
   };
 
-  deal = () => {
+  deal(): Card<FaceType> {
     if (this.dealIndex >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
     const cardToDeal = this.cardAt(this.dealIndex);
     this.advanceDealIndex();
     return cardToDeal;
-  };
+  }
 
   cardAt = (index: number) => {
     return this.cards[index];
