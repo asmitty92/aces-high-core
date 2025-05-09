@@ -422,8 +422,8 @@ describe("CardHand abstract class", () => {
       const hand = new TestHand([new Card(Suits.CLUBS, Faces.ACE), new Card(Suits.DIAMONDS, Faces.TWO)]);
 
       expect(hand.size).toEqual(2);
+    });
   });
-});
 });
 
 describe("CardPlayer abstract class", () => {
