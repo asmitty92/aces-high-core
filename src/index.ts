@@ -281,21 +281,21 @@ export abstract class CardHand<FaceType extends Face> {
     return this._cards;
   };
 
-  abstract calculateScore(context?: unknown): number;
+  abstract calculateScore(context?: unknown): unknown;
 }
 
 export abstract class CardPlayer<FaceType extends Face> {
-  protected myScore: number;
+  protected _score: number;
 
   get score(): number {
-    return this.myScore;
+    return this._score;
   }
 
   protected constructor() {
-    this.myScore = 0;
+    this._score = 0;
   }
 
-  abstract scoreHand(): void;
+  abstract scoreHand(context?: unknown): void;
 
   abstract acceptCards(cards: Card<FaceType>[]): void;
 }
