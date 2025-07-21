@@ -61,7 +61,16 @@ const FaceValues: Map<Face, number> = new Map([
   [Faces.KING, 13],
 ]);
 
-export class Card<FaceType extends Face> {
+export interface ICard {
+  get index(): number;
+  get value(): number;
+  isAce(): boolean;
+  isKing(): boolean;
+  isInDeck(): boolean;
+  toString(): string;
+}
+
+export class Card<FaceType extends Face> implements ICard{
   public get index(): number {
     return this._index;
   }
