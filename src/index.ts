@@ -61,16 +61,18 @@ const FaceValues: Map<Face, number> = new Map([
   [Faces.KING, 13],
 ]);
 
-export interface ICard {
+export interface ICard<FaceType extends Face> {
   get index(): number;
   get value(): number;
+  get suit(): Suit;
+  get face(): FaceType;
   isAce(): boolean;
   isKing(): boolean;
   isInDeck(): boolean;
   toString(): string;
 }
 
-export class Card<FaceType extends Face> implements ICard {
+export class Card implements ICard<Face> {
   public get index(): number {
     return this._index;
   }
@@ -79,9 +81,17 @@ export class Card<FaceType extends Face> implements ICard {
     return FaceValues.get(this.face);
   }
 
+  public get suit(): Suit {
+    return this._suit;
+  }
+
+  public get face(): Face {
+    return this._face;
+  }
+
   constructor(
-    public readonly suit: Suit,
-    public readonly face: FaceType,
+    private readonly _suit: Suit,
+    private readonly _face: Face,
     private _index: number = -1,
   ) {}
 
@@ -102,11 +112,11 @@ export class Card<FaceType extends Face> implements ICard {
   };
 }
 
-export abstract class DeckOfCards<FaceType extends Face> {
-  private _cards: Card<FaceType>[];
+export abstract class DeckOfCards {
+  private _cards: Card[];
   private _dealIndex: number;
 
-  get cards(): Card<FaceType>[] {
+  get cards(): Card[] {
     return this._cards;
   }
 
@@ -118,7 +128,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     return this._dealIndex;
   }
 
-  protected set cards(value: Card<FaceType>[]) {
+  protected set cards(value: Card[]) {
     this._cards = value;
   }
 
@@ -131,7 +141,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     return this.cards.join("\n");
   };
 
-  deal(): Card<FaceType> {
+  deal(): Card {
     if (this.dealIndex >= this.cards.length) throw new TypeError("Cannot deal card, deck is empty");
     const cardToDeal = this.cardAt(this.dealIndex);
     this.advanceDealIndex();
@@ -155,7 +165,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
   riffleShuffle = () => {
     this.resetDealIndex();
     const [top, bottom] = this.splitDeck();
-    const shuffled: Card<FaceType>[] = [];
+    const shuffled: Card[] = [];
 
     let topIndex = 0;
     let bottomIndex = 0;
@@ -206,7 +216,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
   runningCutsShuffle = () => {
     this.resetDealIndex();
 
-    const newDeck: Card<FaceType>[] = [];
+    const newDeck: Card[] = [];
     const deckCopy = [...this.cards];
 
     while (deckCopy.length > 0) {
@@ -261,7 +271,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
   };
 }
 
-export class StandardDeck extends DeckOfCards<Face> {
+export class StandardDeck extends DeckOfCards {
   constructor() {
     super();
     let index = 0;
@@ -275,7 +285,7 @@ export class StandardDeck extends DeckOfCards<Face> {
 
 export abstract class CardHand {
   protected constructor(
-    protected readonly _cards: ICard[],
+    protected readonly _cards: ICard<Face>[],
     private readonly accessKey: symbol,
   ) {}
 
@@ -306,5 +316,5 @@ export abstract class CardPlayer {
 
   abstract scoreHand(context?: unknown): void;
 
-  abstract acceptCards(cards: ICard[]): void;
+  abstract acceptCards(cards: ICard<Face>[]): void;
 }

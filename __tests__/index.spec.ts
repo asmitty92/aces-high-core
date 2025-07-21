@@ -1,4 +1,4 @@
-import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer, getCombinations, Face } from "../src";
+import { Card, CardHand, Faces, StandardDeck, Suits, CardPlayer, getCombinations } from "../src";
 
 function getCuts(deck: StandardDeck): Array<number> {
   let count = 1;
@@ -24,7 +24,7 @@ function nChooseK(n: number, k: number): number {
 }
 
 class TestHand extends CardHand {
-  constructor(cards: Card<Face>[], accessKey?: symbol) {
+  constructor(cards: Card[], accessKey?: symbol) {
     accessKey = accessKey ?? Symbol("testAccessKey");
     super(cards, accessKey);
   }
@@ -41,7 +41,7 @@ class TestPlayer extends CardPlayer {
 
   scoreHand() {}
 
-  acceptCards(cards: Card<Face>[]): void {}
+  acceptCards(cards: Card[]): void {}
 }
 
 describe("getCombinations function", () => {
