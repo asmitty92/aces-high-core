@@ -122,7 +122,7 @@ export abstract class DeckOfCards<FaceType extends Face> {
     this._cards = value;
   }
 
-  constructor() {
+  protected constructor() {
     this._cards = [];
     this._dealIndex = 0;
   }
@@ -273,9 +273,9 @@ export class StandardDeck extends DeckOfCards<Face> {
   }
 }
 
-export abstract class CardHand<FaceType extends Face> {
+export abstract class CardHand {
   protected constructor(
-    protected readonly _cards: Card<FaceType>[],
+    protected readonly _cards: ICard[],
     private readonly accessKey: symbol,
   ) {}
 
@@ -293,7 +293,7 @@ export abstract class CardHand<FaceType extends Face> {
   abstract calculateScore(context?: unknown): unknown;
 }
 
-export abstract class CardPlayer<FaceType extends Face> {
+export abstract class CardPlayer {
   protected _score: number;
 
   get score(): number {
@@ -306,5 +306,5 @@ export abstract class CardPlayer<FaceType extends Face> {
 
   abstract scoreHand(context?: unknown): void;
 
-  abstract acceptCards(cards: Card<FaceType>[]): void;
+  abstract acceptCards(cards: ICard[]): void;
 }
