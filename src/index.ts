@@ -70,7 +70,7 @@ export interface ICard {
   toString(): string;
 }
 
-export class Card<FaceType extends Face> implements ICard{
+export class Card<FaceType extends Face> implements ICard {
   public get index(): number {
     return this._index;
   }
