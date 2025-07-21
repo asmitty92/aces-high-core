@@ -23,7 +23,7 @@ function nChooseK(n: number, k: number): number {
   return nChooseK(n - 1, k - 1) + nChooseK(n - 1, k);
 }
 
-class TestHand extends CardHand<Face> {
+class TestHand extends CardHand {
   constructor(cards: Card<Face>[], accessKey?: symbol) {
     accessKey = accessKey ?? Symbol("testAccessKey");
     super(cards, accessKey);
@@ -34,7 +34,7 @@ class TestHand extends CardHand<Face> {
   }
 }
 
-class TestPlayer extends CardPlayer<Face> {
+class TestPlayer extends CardPlayer {
   constructor() {
     super();
   }
@@ -76,6 +76,7 @@ describe("getCombinations function", () => {
 
     expect(combinations.length).toEqual(expectedCount);
   });
+
   it("should return only unique combinations", () => {
     const items = [1, 2, 3, 4];
     const combinations = getCombinations(items, 2);
